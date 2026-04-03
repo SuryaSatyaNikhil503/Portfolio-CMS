@@ -106,7 +106,8 @@ export default async function AboutPage() {
                     {/* Bio */}
                     {about?.bio && (() => {
                       // Check if bio has real content (not just placeholder text)
-                      const bioContent = about.bio;
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      const bioContent = about.bio as any;
                       if (!bioContent?.content) return null;
                       const textContent = JSON.stringify(bioContent);
                       const placeholders = [
@@ -125,7 +126,7 @@ export default async function AboutPage() {
                       if (isPlaceholder || !hasRealText) return null;
                       return (
                         <div className="text-muted-foreground leading-relaxed prose-blog">
-                          <TipTapRenderer content={about.bio} />
+                          <TipTapRenderer content={about.bio as any} />
                         </div>
                       );
                     })()}
