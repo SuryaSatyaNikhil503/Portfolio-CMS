@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model About {
+  id           String   @id @default(cuid())
+  name         String
+  title        String   @default("")
+  profileImage String   @default("")
+  bio          Json     @default("{}")
+  resumeLink   String   @default("")
+  githubUrl    String   @default("")
+  linkedinUrl  String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("about")
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  thumbnail   String   @default("")
+  excerpt     String   @default("")
+  content     Json     @default("{}")
+  tags        String[] @default([])
+  published   Boolean  @default(false)
+  readingTime String   @default("1 min read")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("blogs")
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  thumbnail    String   @default("")
+  techStack    String[] @default([])
+  githubLink   String   @default("")
+  liveDemoLink String   @default("")
+  description  Json     @default("{}")
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  company      String
+  role         String
+  companyLogo  String   @default("")
+  location     String   @default("")
+  startDate    String
+  endDate      String   @default("Present")
+  description  String   @default("")
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("experiences")
+}
+
+model Skill {
+  id           String   @id @default(cuid())
+  name         String
+  icon         String   @default("")
+  category     String
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("skills")
+}
+
+model Subscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+
+  @@map("subscribers")
+}
