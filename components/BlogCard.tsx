@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface BlogCardProps {
   title: string;
@@ -31,10 +32,11 @@ export default function BlogCard({
         {/* Thumbnail */}
         <div className="relative aspect-[16/9] bg-muted/50 overflow-hidden">
           {thumbnail ? (
-            <img
+            <Image
+              fill
               src={thumbnail}
               alt={title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">

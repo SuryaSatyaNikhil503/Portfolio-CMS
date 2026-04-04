@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const TipTapEditor = dynamic(() => import("@/editor/TipTapEditor"), {
   ssr: false,
@@ -137,9 +138,11 @@ export default function AdminAboutPage() {
         <div className="flex items-center gap-4 mb-2">
           <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center overflow-hidden flex-shrink-0">
             {profileImage ? (
-              <img
+              <Image
                 src={profileImage}
                 alt="Profile"
+                width={64}
+                height={64}
                 className="w-full h-full object-cover"
               />
             ) : (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface Project {
   id: string;
@@ -180,7 +181,7 @@ export default function AdminProjectsPage() {
                 )}
               </button>
               {thumbnailUrl && (
-                <img src={thumbnailUrl} alt="Thumbnail preview" className="w-12 h-12 rounded-lg object-cover" />
+                <Image src={thumbnailUrl} alt="Thumbnail preview" width={48} height={48} className="w-12 h-12 rounded-lg object-cover" />
               )}
             </div>
           </div>
@@ -214,7 +215,7 @@ export default function AdminProjectsPage() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-start gap-3">
                   {project.thumbnail && (
-                    <img src={project.thumbnail} alt={project.title} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+                    <Image src={project.thumbnail} alt={project.title} width={48} height={48} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
                   )}
                   <div>
                     <h3 className="font-semibold text-foreground">{project.title}</h3>

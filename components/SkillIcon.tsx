@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface SkillIconProps {
   name: string;
   icon?: string;
@@ -9,7 +11,7 @@ export default function SkillIcon({ name, icon }: SkillIconProps) {
     <div className="group flex flex-col items-center gap-3 p-4 glass rounded-xl card-hover cursor-default">
       <div className="w-14 h-14 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110">
         {icon ? (
-          <img src={icon} alt={name} className="w-10 h-10 object-contain" />
+          <Image src={icon} alt={name} width={40} height={40} className="object-contain" />
         ) : (
           <div className="w-10 h-10 rounded-lg gradient-bg opacity-60 flex items-center justify-center">
             <span className="text-white font-bold text-sm">

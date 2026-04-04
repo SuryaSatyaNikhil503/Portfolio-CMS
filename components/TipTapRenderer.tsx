@@ -1,8 +1,9 @@
 "use client";
 
 import { ReactNode } from "react";
+import Image from "next/image";
 
-interface TipTapNode {
+export interface TipTapNode {
   type: string;
   content?: TipTapNode[];
   text?: string;
@@ -85,11 +86,14 @@ function renderNode(node: TipTapNode, index: number): ReactNode {
       );
     case "image":
       return (
-        <img
+        <Image
           key={index}
           src={node.attrs?.src as string}
           alt={(node.attrs?.alt as string) || ""}
           title={(node.attrs?.title as string) || undefined}
+          width={(node.attrs?.width as number) || 800}
+          height={(node.attrs?.height as number) || 600}
+          className="max-w-full h-auto"
         />
       );
     case "horizontalRule":

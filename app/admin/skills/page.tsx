@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface Skill {
   id: string;
@@ -159,7 +160,7 @@ export default function AdminSkillsPage() {
                 )}
               </button>
               {iconUrl && (
-                <img src={iconUrl} alt="Icon preview" className="w-10 h-10 object-contain" />
+                <Image src={iconUrl} alt="Icon preview" width={40} height={40} className="w-10 h-10 object-contain" />
               )}
             </div>
           </div>
@@ -202,7 +203,7 @@ export default function AdminSkillsPage() {
                       </svg>
                     </button>
                     {skill.icon ? (
-                      <img src={skill.icon} alt={skill.name} className="w-10 h-10 mx-auto mb-2 object-contain" />
+                      <Image src={skill.icon} alt={skill.name} width={40} height={40} className="w-10 h-10 mx-auto mb-2 object-contain" />
                     ) : (
                       <div className="w-10 h-10 rounded-lg gradient-bg opacity-50 flex items-center justify-center mx-auto mb-2">
                         <span className="text-white font-bold text-sm">{skill.name.charAt(0)}</span>

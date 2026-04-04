@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -43,9 +44,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             {profileImage ? (
-              <img
+              <Image
                 src={profileImage}
                 alt="Nikhil"
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-lg object-cover"
               />
             ) : (

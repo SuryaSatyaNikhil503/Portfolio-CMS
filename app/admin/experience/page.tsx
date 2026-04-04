@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface Experience {
   id: string;
@@ -186,7 +187,7 @@ export default function AdminExperiencePage() {
                 )}
               </button>
               {logoUrl && (
-                <img src={logoUrl} alt="Logo preview" className="w-10 h-10 rounded-lg object-contain bg-muted/30 p-1" />
+                <Image src={logoUrl} alt="Logo preview" width={40} height={40} className="w-10 h-10 rounded-lg object-contain bg-muted/30 p-1" />
               )}
             </div>
           </div>
@@ -220,7 +221,7 @@ export default function AdminExperiencePage() {
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-3">
                   {exp.companyLogo && (
-                    <img src={exp.companyLogo} alt={exp.company} className="w-10 h-10 rounded-lg object-contain bg-muted/30 p-1 flex-shrink-0" />
+                    <Image src={exp.companyLogo} alt={exp.company} width={40} height={40} className="w-10 h-10 rounded-lg object-contain bg-muted/30 p-1 flex-shrink-0" />
                   )}
                   <div>
                     <h3 className="font-semibold text-foreground">{exp.role}</h3>

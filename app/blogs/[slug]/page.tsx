@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import TipTapRenderer from "@/components/TipTapRenderer";
@@ -110,11 +111,12 @@ export default async function BlogDetailPage({
 
           {/* Thumbnail */}
           {blog.thumbnail && (
-            <div className="rounded-2xl overflow-hidden mb-10">
-              <img
+            <div className="relative aspect-video rounded-2xl overflow-hidden mb-10">
+              <Image
+                fill
                 src={blog.thumbnail}
                 alt={blog.title}
-                className="w-full aspect-video object-cover"
+                className="object-cover"
               />
             </div>
           )}

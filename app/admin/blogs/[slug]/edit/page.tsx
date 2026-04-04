@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const TipTapEditor = lazy(() => import("@/editor/TipTapEditor"));
 
@@ -264,7 +265,9 @@ export default function EditBlogPage({
                 )}
               </button>
               {thumbnail && (
-                <img src={thumbnail} alt="Thumbnail" className="w-full rounded-xl object-cover aspect-video mt-2" />
+                <div className="relative aspect-video rounded-xl overflow-hidden mt-2">
+                  <Image fill src={thumbnail} alt="Thumbnail" className="object-cover" />
+                </div>
               )}
             </div>
 

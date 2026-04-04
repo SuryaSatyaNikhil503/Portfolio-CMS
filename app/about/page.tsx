@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
-import TipTapRenderer from "@/components/TipTapRenderer";
+import TipTapRenderer, { TipTapNode } from "@/components/TipTapRenderer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { getPortfolioStats } from "@/lib/getPortfolioStats";
 
@@ -77,9 +78,11 @@ export default async function AboutPage() {
                   <div className="profile-ring flex-shrink-0">
                     <div className="w-44 h-44 rounded-2xl overflow-hidden bg-card">
                       {about?.profileImage ? (
-                        <img
+                        <Image
                           src={about.profileImage}
                           alt={about.name || "Profile"}
+                          width={176}
+                          height={176}
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -106,8 +109,7 @@ export default async function AboutPage() {
                     {/* Bio */}
                     {about?.bio && (() => {
                       // Check if bio has real content (not just placeholder text)
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      const bioContent = about.bio as any;
+                      const bioContent = about.bio as TipTapNode;
                       if (!bioContent?.content) return null;
                       const textContent = JSON.stringify(bioContent);
                       const placeholders = [
@@ -120,13 +122,12 @@ export default async function AboutPage() {
                       );
                       // Also skip empty content
                       const hasRealText = bioContent.content?.some(
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        (node: any) => node.content?.some((child: any) => child.text?.trim())
+                        (node: TipTapNode) => node.content?.some((child: TipTapNode) => child.text?.trim())
                       );
                       if (isPlaceholder || !hasRealText) return null;
                       return (
                         <div className="text-muted-foreground leading-relaxed prose-blog">
-                          <TipTapRenderer content={about.bio as any} />
+                          <TipTapRenderer content={about.bio as TipTapNode} />
                         </div>
                       );
                     })()}

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface TimelineItemProps {
   company: string;
   role: string;
@@ -36,10 +38,12 @@ export default function TimelineItem({
             {/* Company Logo */}
             <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden flex-shrink-0">
               {companyLogo ? (
-                <img
+                <Image
                   src={companyLogo}
                   alt={company}
-                  className="w-10 h-10 object-contain"
+                  width={40}
+                  height={40}
+                  className="object-contain"
                 />
               ) : (
                 <span className="text-lg font-bold gradient-text">
