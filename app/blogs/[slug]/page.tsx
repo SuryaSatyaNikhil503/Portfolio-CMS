@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
-import TipTapRenderer from "@/components/TipTapRenderer";
+import TipTapRenderer, { TipTapNode } from "@/components/TipTapRenderer";
 
 export const dynamic = "force-dynamic";
 
@@ -123,7 +123,7 @@ export default async function BlogDetailPage({
 
           {/* Content */}
           {blog.content ? (
-            <TipTapRenderer content={blog.content} />
+            <TipTapRenderer content={blog.content as unknown as TipTapNode} />
           ) : (
             <div className="glass rounded-2xl p-8 text-center">
               <p className="text-muted-foreground text-sm">

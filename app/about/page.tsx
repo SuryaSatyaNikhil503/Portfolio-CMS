@@ -109,7 +109,7 @@ export default async function AboutPage() {
                     {/* Bio */}
                     {about?.bio && (() => {
                       // Check if bio has real content (not just placeholder text)
-                      const bioContent = about.bio as TipTapNode;
+                      const bioContent = about.bio as unknown as TipTapNode;
                       if (!bioContent?.content) return null;
                       const textContent = JSON.stringify(bioContent);
                       const placeholders = [
@@ -127,7 +127,7 @@ export default async function AboutPage() {
                       if (isPlaceholder || !hasRealText) return null;
                       return (
                         <div className="text-muted-foreground leading-relaxed prose-blog">
-                          <TipTapRenderer content={about.bio as TipTapNode} />
+                          <TipTapRenderer content={about.bio as unknown as TipTapNode} />
                         </div>
                       );
                     })()}

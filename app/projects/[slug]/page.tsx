@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
-import TipTapRenderer from "@/components/TipTapRenderer";
+import TipTapRenderer, { TipTapNode } from "@/components/TipTapRenderer";
 
 export const dynamic = "force-dynamic";
 
@@ -117,10 +117,9 @@ export default async function ProjectDetailPage({
 
           {/* Description Content */}
           {project.description &&
-          typeof project.description === "object" &&
-          project.description.content?.length > 0 ? (
+          ((project.description as unknown as TipTapNode).content?.length ?? 0) > 0 ? (
             <div className="glass rounded-2xl p-8">
-              <TipTapRenderer content={project.description} />
+              <TipTapRenderer content={project.description as unknown as TipTapNode} />
             </div>
           ) : null}
         </div>
