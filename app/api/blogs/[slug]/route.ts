@@ -3,12 +3,22 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { requireAuth } from "@/lib/auth";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+function createTransporter() {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) return null;
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+}
 
 async function sendPublishEmail(blog: { title: string; slug: string; excerpt: string; thumbnail: string }) {
-  if (!resend || !process.env.RESEND_FROM_EMAIL) return;
+  const transporter = createTransporter();
+  if (!transporter) return;
 
   const subscribers = await prisma.subscriber.findMany({ select: { email: true, name: true } });
   if (subscribers.length === 0) return;
@@ -32,8 +42,8 @@ async function sendPublishEmail(blog: { title: string; slug: string; excerpt: st
 
   await Promise.allSettled(
     subscribers.map((s) =>
-      resend!.emails.send({
-        from: process.env.RESEND_FROM_EMAIL!,
+      transporter.sendMail({
+        from: `"Nikhil" <${process.env.GMAIL_USER}>`,
         to: s.email,
         subject: `New article: ${blog.title}`,
         html,

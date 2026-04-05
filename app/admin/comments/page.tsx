@@ -38,29 +38,9 @@ export default function CommentsPage() {
 
   async function fetchComments() {
     try {
-      // Fetch all published blogs and their comments
-      const blogsRes = await fetch("/api/blogs?published=false");
-      const blogsData = await blogsRes.json();
-      const blogs: { slug: string; title: string }[] = blogsData.blogs || [];
-
-      const all: Comment[] = [];
-      await Promise.all(
-        blogs.map(async (blog) => {
-          const res = await fetch(`/api/blogs/${blog.slug}/comments`);
-          const data = await res.json();
-          if (data.comments) {
-            for (const c of data.comments) {
-              all.push({ ...c, blog: { title: blog.title, slug: blog.slug } });
-              for (const r of c.replies || []) {
-                all.push({ ...r, blog: { title: blog.title, slug: blog.slug } });
-              }
-            }
-          }
-        })
-      );
-
-      all.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      setComments(all);
+      const res = await fetch("/api/admin/comments");
+      const data = await res.json();
+      setComments(data.comments || []);
     } catch {
       // ignore
     } finally {
