@@ -26,7 +26,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const { blog } = await getBlogWithData(slug);
   if (!blog) return { title: "Blog Not Found" };
-  return { title: blog.title, description: blog.excerpt || `Read ${blog.title}` };
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com";
+  const url = `${siteUrl}/blogs/${slug}`;
+  return {
+    title: blog.title,
+    description: blog.excerpt || `Read ${blog.title} by Surya Satya Nikhil Gadhavajula`,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: blog.title,
+      description: blog.excerpt || `Read ${blog.title}`,
+      images: blog.thumbnail ? [{ url: blog.thumbnail }] : [],
+    },
+  };
 }
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {

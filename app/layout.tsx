@@ -3,8 +3,12 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import prisma from "@/lib/prisma";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Surya Satya Nikhil Gadhavajula | Software Developer",
     template: "%s | Surya Satya Nikhil Gadhavajula",
@@ -29,8 +33,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Surya Satya Nikhil Gadhavajula" }],
   creator: "Surya Satya Nikhil Gadhavajula",
+  alternates: { canonical: siteUrl },
   openGraph: {
     type: "website",
+    url: siteUrl,
     title: "Surya Satya Nikhil Gadhavajula | Software Developer",
     description:
       "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
@@ -44,13 +50,40 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const about = await prisma.about.findFirst({
+    select: { githubUrl: true, linkedinUrl: true },
+  }).catch(() => null);
+
+  const sameAs = [
+    about?.githubUrl,
+    about?.linkedinUrl,
+  ].filter(Boolean) as string[];
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Surya Satya Nikhil Gadhavajula",
+    alternateName: ["Surya Satya Nikhil", "Nikhil Gadhavajula", "Nikhil"],
+    url: siteUrl,
+    jobTitle: "Software Developer",
+    description:
+      "Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.",
+    sameAs,
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+      </head>
       <body className="noise min-h-screen flex flex-col">
         <ThemeProvider>
           <Navbar />

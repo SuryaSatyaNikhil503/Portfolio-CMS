@@ -24,9 +24,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProject(slug);
   if (!project) return { title: "Project Not Found" };
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com";
+  const url = `${siteUrl}/projects/${slug}`;
   return {
     title: project.title,
     description: `${project.title} — Built with ${project.techStack?.join(", ")}`,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: project.title,
+      description: `${project.title} — Built with ${project.techStack?.join(", ")}`,
+      images: project.thumbnail ? [{ url: project.thumbnail }] : [],
+    },
   };
 }
 
