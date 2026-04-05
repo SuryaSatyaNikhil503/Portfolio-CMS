@@ -21,9 +21,9 @@ async function getBlogs() {
         slug: true,
         excerpt: true,
         tags: true,
-        readingTime: true,
         thumbnail: true,
         createdAt: true,
+        _count: { select: { views: true } },
       },
     });
     return blogs;
@@ -36,9 +36,8 @@ async function getBlogs() {
 export default async function BlogsPage() {
   const blogs = await getBlogs();
 
-  // Extract unique tags from all blogs
   const allTags = Array.from(
-    new Set(blogs.flatMap((b: { tags: string[] }) => b.tags || []))
+    new Set(blogs.flatMap((b) => b.tags || []))
   );
 
   return (
@@ -49,15 +48,11 @@ export default async function BlogsPage() {
           subtitle="Technical articles on system design, architecture, and software development"
         />
 
-        {/* Tags Filter (visual only for SSR) */}
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2 justify-center mb-12">
             {allTags.map((tag) => (
-              <span
-                key={tag as string}
-                className="px-4 py-2 rounded-full text-sm font-medium glass text-muted-foreground"
-              >
-                {tag as string}
+              <span key={tag} className="px-4 py-2 rounded-full text-sm font-medium glass text-muted-foreground">
+                {tag}
               </span>
             ))}
           </div>
@@ -65,25 +60,22 @@ export default async function BlogsPage() {
 
         {blogs.length === 0 ? (
           <div className="glass rounded-2xl p-12 text-center max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground">
-              No posts to display yet. Check back soon!
-            </p>
+            <p className="text-sm text-muted-foreground">No posts to display yet. Check back soon!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map(
-              (blog: {
-                slug: string;
-                title: string;
-                excerpt: string;
-                tags: string[];
-                readingTime: string;
-                thumbnail: string;
-                createdAt: Date;
-              }) => (
-                <BlogCard key={blog.slug} {...blog} createdAt={blog.createdAt.toISOString()} />
-              )
-            )}
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog.slug}
+                title={blog.title}
+                slug={blog.slug}
+                excerpt={blog.excerpt}
+                tags={blog.tags}
+                thumbnail={blog.thumbnail}
+                createdAt={blog.createdAt.toISOString()}
+                viewCount={blog._count.views}
+              />
+            ))}
           </div>
         )}
       </div>

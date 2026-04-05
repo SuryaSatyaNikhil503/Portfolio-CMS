@@ -34,17 +34,19 @@ model About {
 }
 
 model Blog {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
-  slug        String   @unique
-  thumbnail   String   @default("")
-  excerpt     String   @default("")
-  content     Json     @default("{}")
-  tags        String[] @default([])
-  published   Boolean  @default(false)
-  readingTime String   @default("1 min read")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  slug        String     @unique
+  thumbnail   String     @default("")
+  excerpt     String     @default("")
+  content     Json       @default("{}")
+  tags        String[]   @default([])
+  published   Boolean    @default(false)
+  readingTime String     @default("1 min read")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  views       BlogView[]
+  comments    Comment[]
 
   @@map("blogs")
 }
@@ -95,8 +97,52 @@ model Skill {
 
 model Subscriber {
   id           String   @id @default(cuid())
+  name         String   @default("")
   email        String   @unique
+  profession   String   @default("")
+  location     String   @default("")
+  phone        String   @default("")
   subscribedAt DateTime @default(now())
 
   @@map("subscribers")
+}
+
+model BlogView {
+  id        String   @id @default(cuid())
+  blogId    String
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  source    String   @default("Direct")
+  referrer  String   @default("")
+  createdAt DateTime @default(now())
+
+  @@map("blog_views")
+}
+
+model Comment {
+  id          String            @id @default(cuid())
+  blogId      String
+  blog        Blog              @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  authorName  String
+  authorEmail String
+  content     String
+  parentId    String?
+  parent      Comment?          @relation("Replies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies     Comment[]         @relation("Replies")
+  adminReply  String            @default("")
+  isApproved  Boolean           @default(true)
+  reactions   CommentReaction[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@map("comments")
+}
+
+model CommentReaction {
+  id        String   @id @default(cuid())
+  commentId String
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  type      String
+  createdAt DateTime @default(now())
+
+  @@map("comment_reactions")
 }

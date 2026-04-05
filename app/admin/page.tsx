@@ -3,163 +3,119 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+interface Stats {
+  blogCount: number;
+  projectCount: number;
+  skillCount: number;
+  subscriberCount: number;
+  totalViews: number;
+  commentCount: number;
+  viewsBySource: { source: string; count: number }[];
+}
+
 const quickActions = [
-  {
-    title: "Write New Blog",
-    description: "Create a new blog post with the rich text editor",
-    href: "/admin/blogs/new",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Add Project",
-    description: "Showcase a new project in your portfolio",
-    href: "/admin/projects",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-    ),
-  },
-  {
-    title: "Manage Skills",
-    description: "Add or update your skills and technologies",
-    href: "/admin/skills",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Update About",
-    description: "Edit your profile and bio information",
-    href: "/admin/about",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-    ),
-  },
+  { title: "Write New Blog", description: "Create a new blog post", href: "/admin/blogs/new", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg> },
+  { title: "Add Project", description: "Showcase a new project", href: "/admin/projects", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg> },
+  { title: "View Subscribers", description: "Manage newsletter subscribers", href: "/admin/subscribers", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
+  { title: "Moderate Comments", description: "Reply and manage blog comments", href: "/admin/comments", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg> },
 ];
 
 export default function AdminDashboard() {
-  const [counts, setCounts] = useState({
-    blogs: 0,
-    projects: 0,
-    skills: 0,
-    subscribers: 0,
-  });
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const [blogsRes, projectsRes, skillsRes] = await Promise.all([
-          fetch("/api/blogs").then((r) => r.json()).catch(() => ({ blogs: [] })),
-          fetch("/api/projects").then((r) => r.json()).catch(() => ({ projects: [] })),
-          fetch("/api/skills").then((r) => r.json()).catch(() => ({ skills: [] })),
-        ]);
-
-        setCounts({
-          blogs: blogsRes.blogs?.length || 0,
-          projects: projectsRes.projects?.length || 0,
-          skills: skillsRes.skills?.length || 0,
-          subscribers: 0,
-        });
-      } catch {
-        // Keep defaults
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCounts();
+    fetch("/api/admin/stats")
+      .then((r) => r.json())
+      .then((d) => setStats(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
-  const stats = [
-    { label: "Blog Posts", value: counts.blogs, icon: "📝", href: "/admin/blogs" },
-    { label: "Projects", value: counts.projects, icon: "🚀", href: "/admin/projects" },
-    { label: "Skills", value: counts.skills, icon: "💡", href: "/admin/skills" },
-    { label: "Subscribers", value: counts.subscribers, icon: "📧", href: "#" },
+  const statCards = [
+    { label: "Blog Posts", value: stats?.blogCount ?? 0, icon: "📝", href: "/admin/blogs" },
+    { label: "Total Views", value: stats?.totalViews ?? 0, icon: "👁️", href: "/admin/blogs" },
+    { label: "Subscribers", value: stats?.subscriberCount ?? 0, icon: "📧", href: "/admin/subscribers" },
+    { label: "Comments", value: stats?.commentCount ?? 0, icon: "💬", href: "/admin/comments" },
+    { label: "Projects", value: stats?.projectCount ?? 0, icon: "🚀", href: "/admin/projects" },
+    { label: "Skills", value: stats?.skillCount ?? 0, icon: "💡", href: "/admin/skills" },
   ];
+
+  const maxSource = Math.max(...(stats?.viewsBySource.map((s) => s.count) ?? [1]));
 
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">
-          Welcome back! Manage your portfolio content.
-        </p>
+        <p className="text-muted-foreground mt-1">Welcome back! Manage your portfolio content.</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => (
-          <Link
-            key={stat.label}
-            href={stat.href}
-            className="glass rounded-2xl p-5 card-hover"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-2xl">{stat.icon}</span>
-              <svg
-                className="w-4 h-4 text-muted-foreground"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {statCards.map((stat) => (
+          <Link key={stat.label} href={stat.href} className="glass rounded-2xl p-4 card-hover">
+            <div className="text-2xl mb-2">{stat.icon}</div>
+            <div className="text-2xl font-bold gradient-text">
+              {loading ? <span className="inline-block w-8 h-6 rounded bg-muted/50 animate-pulse" /> : stat.value.toLocaleString()}
             </div>
-            <div className="text-3xl font-bold gradient-text">
-              {loading ? (
-                <span className="inline-block w-8 h-8 rounded bg-muted/50 animate-pulse" />
-              ) : (
-                stat.value
-              )}
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
-              {stat.label}
-            </div>
+            <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
           </Link>
         ))}
       </div>
 
-      {/* Quick Actions */}
-      <div>
-        <h2 className="text-xl font-semibold text-foreground mb-4">
-          Quick Actions
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {quickActions.map((action) => (
-            <Link
-              key={action.title}
-              href={action.href}
-              className="glass rounded-2xl p-5 card-hover flex items-start gap-4 group"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                {action.icon}
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {action.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-0.5">
-                  {action.description}
-                </p>
-              </div>
-            </Link>
-          ))}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Traffic Sources */}
+        <div className="glass rounded-2xl p-6">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Traffic Sources</h2>
+          {loading ? (
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="h-3 w-16 bg-muted/50 rounded animate-pulse" />
+                  <div className="h-3 flex-1 bg-muted/50 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          ) : !stats?.viewsBySource.length ? (
+            <p className="text-muted-foreground text-sm">No traffic data yet.</p>
+          ) : (
+            <div className="space-y-3">
+              {stats.viewsBySource.map((s) => (
+                <div key={s.source} className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground w-20 flex-shrink-0">{s.source}</span>
+                  <div className="flex-1 h-2 bg-muted/30 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-500"
+                      style={{ width: `${(s.count / maxSource) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-sm font-medium text-foreground w-10 text-right">{s.count}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Quick Actions */}
+        <div>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {quickActions.map((action) => (
+              <Link
+                key={action.title}
+                href={action.href}
+                className="glass rounded-xl p-4 card-hover flex items-start gap-3 group"
+              >
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {action.icon}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{action.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">{action.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

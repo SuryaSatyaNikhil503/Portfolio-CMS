@@ -5,37 +5,35 @@ import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const { name, email, profession, location, phone } = await request.json();
 
     if (!email || !email.includes("@")) {
-      return NextResponse.json(
-        { error: "Valid email is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
+    }
+    if (!name?.trim()) {
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
     const existing = await prisma.subscriber.findUnique({
       where: { email: email.toLowerCase() },
     });
     if (existing) {
-      return NextResponse.json(
-        { message: "Already subscribed" },
-        { status: 200 }
-      );
+      return NextResponse.json({ message: "Already subscribed" }, { status: 200 });
     }
 
     await prisma.subscriber.create({
-      data: { email: email.toLowerCase() },
+      data: {
+        name: name.trim(),
+        email: email.toLowerCase(),
+        profession: profession?.trim() || "",
+        location: location?.trim() || "",
+        phone: phone?.trim() || "",
+      },
     });
-    return NextResponse.json(
-      { message: "Subscribed successfully" },
-      { status: 201 }
-    );
+
+    return NextResponse.json({ message: "Subscribed successfully!" }, { status: 201 });
   } catch (error) {
     console.error("Newsletter error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

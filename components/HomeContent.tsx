@@ -3,6 +3,7 @@
 import Link from "next/link";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import NewsletterForm from "@/components/NewsletterForm";
 
 interface HomeStat {
     label: string;
@@ -286,6 +287,21 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                                     </svg>
                                 </Link>
                             </div>
+                        </div>
+                    </AnimateOnScroll>
+                </div>
+            </section>
+
+            {/* Newsletter Section */}
+            <section id="newsletter" className="section-padding">
+                <div className="container-width">
+                    <AnimateOnScroll>
+                        <div className="max-w-xl mx-auto glass-strong rounded-2xl p-8 text-center glow-border">
+                            <h2 className="text-2xl font-bold text-foreground mb-2">Stay in the Loop</h2>
+                            <p className="text-muted-foreground mb-6 text-sm">
+                                Get notified when I publish new articles on system design, software development, and more.
+                            </p>
+                            <NewsletterForm />
                         </div>
                     </AnimateOnScroll>
                 </div>
