@@ -44,21 +44,20 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                         <AnimateOnScroll direction="fade-up" delay={0}>
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-muted-foreground mb-4">
                                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                                Open to opportunities
+                                Available for Opportunities
                             </div>
                         </AnimateOnScroll>
 
                         <AnimateOnScroll direction="fade-up" delay={150}>
                             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                                Hi, I&apos;m a{" "}
                                 <span className="gradient-text">{title}</span>
                             </h1>
                         </AnimateOnScroll>
 
                         <AnimateOnScroll direction="fade-up" delay={300}>
                             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                                I build scalable web applications and write about system design,
-                                software architecture, and modern development practices.
+                                I engineer scalable systems, solve complex problems, and share deep insights on
+                                architecture, performance, and modern software engineering.
                             </p>
                         </AnimateOnScroll>
 
@@ -169,12 +168,33 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                         </div>
                     </AnimateOnScroll>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
-                                title: "Full-Stack Development",
+                                title: "Scalable Backend Systems",
                                 description:
-                                    "Building robust web applications with React, Next.js, Node.js, and TypeScript. From frontend interfaces to backend APIs.",
+                                    "Building production-grade backends with Spring Boot and Node.js: microservices, REST APIs, message queues, and distributed systems designed to scale.",
+                                icon: (
+                                    <svg
+                                        className="w-8 h-8"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={1.5}
+                                            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                                        />
+                                    </svg>
+                                ),
+                                gradient: "from-blue-500/20 to-indigo-500/20",
+                            },
+                            {
+                                title: "Frontend & Full-Stack",
+                                description:
+                                    "Crafting performant UIs with React JS, integrated end-to-end with robust backend APIs from design system to deployment.",
                                 icon: (
                                     <svg
                                         className="w-8 h-8"
@@ -190,12 +210,12 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                                         />
                                     </svg>
                                 ),
-                                gradient: "from-blue-500/20 to-indigo-500/20",
+                                gradient: "from-purple-500/20 to-pink-500/20",
                             },
                             {
-                                title: "System Design",
+                                title: "CI/CD & DevOps",
                                 description:
-                                    "Architecting scalable systems with distributed computing, caching strategies, and microservices patterns.",
+                                    "Automating delivery pipelines with CI/CD and cloud deployments, keeping releases fast, reliable, and repeatable.",
                                 icon: (
                                     <svg
                                         className="w-8 h-8"
@@ -207,16 +227,16 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                             strokeWidth={1.5}
-                                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                                         />
                                     </svg>
                                 ),
-                                gradient: "from-purple-500/20 to-pink-500/20",
+                                gradient: "from-cyan-500/20 to-teal-500/20",
                             },
                             {
                                 title: "Technical Writing",
                                 description:
-                                    "Sharing knowledge through in-depth technical articles on system design, data structures, and software engineering.",
+                                    "Writing deep-dive articles on system design, architecture, performance, and engineering trade-offs.",
                                 icon: (
                                     <svg
                                         className="w-8 h-8"
@@ -232,7 +252,7 @@ export default function HomeContent({ stats, title }: HomeContentProps) {
                                         />
                                     </svg>
                                 ),
-                                gradient: "from-cyan-500/20 to-teal-500/20",
+                                gradient: "from-orange-500/20 to-yellow-500/20",
                             },
                         ].map((item, index) => (
                             <AnimateOnScroll
