@@ -6,12 +6,11 @@ interface BlogCardProps {
   slug: string;
   thumbnail?: string;
   excerpt: string;
-  tags: string[];
   viewCount?: number;
   createdAt: string;
 }
 
-export default function BlogCard({ title, slug, thumbnail, excerpt, tags, viewCount, createdAt }: BlogCardProps) {
+export default function BlogCard({ title, slug, thumbnail, excerpt, viewCount, createdAt }: BlogCardProps) {
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -63,13 +62,7 @@ export default function BlogCard({ title, slug, thumbnail, excerpt, tags, viewCo
             {title}
           </h3>
 
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">{excerpt}</p>
-
-          <div className="flex flex-wrap gap-2">
-            {tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="badge text-[11px]">{tag}</span>
-            ))}
-          </div>
+          <p className="text-sm text-muted-foreground line-clamp-2 flex-1">{excerpt}</p>
         </div>
       </article>
     </Link>

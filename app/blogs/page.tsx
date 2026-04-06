@@ -20,7 +20,6 @@ async function getBlogs() {
         title: true,
         slug: true,
         excerpt: true,
-        tags: true,
         thumbnail: true,
         createdAt: true,
         _count: { select: { views: true } },
@@ -36,10 +35,6 @@ async function getBlogs() {
 export default async function BlogsPage() {
   const blogs = await getBlogs();
 
-  const allTags = Array.from(
-    new Set(blogs.flatMap((b) => b.tags || []))
-  );
-
   return (
     <div className="section-padding">
       <div className="container-width">
@@ -47,16 +42,6 @@ export default async function BlogsPage() {
           title="Blog"
           subtitle="Technical articles on system design, architecture, and software development"
         />
-
-        {allTags.length > 0 && (
-          <div className="flex flex-wrap gap-2 justify-center mb-12">
-            {allTags.map((tag) => (
-              <span key={tag} className="px-4 py-2 rounded-full text-sm font-medium glass text-muted-foreground">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
 
         {blogs.length === 0 ? (
           <div className="glass rounded-2xl p-12 text-center max-w-md mx-auto">
@@ -70,7 +55,6 @@ export default async function BlogsPage() {
                 title={blog.title}
                 slug={blog.slug}
                 excerpt={blog.excerpt}
-                tags={blog.tags}
                 thumbnail={blog.thumbnail}
                 createdAt={blog.createdAt.toISOString()}
                 viewCount={blog._count.views}

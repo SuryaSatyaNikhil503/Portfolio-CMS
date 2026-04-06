@@ -136,9 +136,7 @@ export default async function AboutPage() {
                     <div className="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
                       {about?.resumeLink && (
                         <a
-                          href={about.resumeLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href="/api/resume/download"
                           className="btn-primary gap-2 group"
                         >
                           <svg
