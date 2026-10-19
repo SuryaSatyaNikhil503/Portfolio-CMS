@@ -24,8 +24,8 @@ export default function MeasurementNotice() {
   return (
     <div className="mnotice" role="region" aria-label="Measurement notice">
       <p>
-        <b>I count visits anonymously.</b> Pages, time spent and city. No IP address, no cookies, no ads, nothing that identifies you.{" "}
-        <a href="/privacy">Details</a>
+        <b>This site uses basic analytics to understand how it is used.</b>{" "}
+        <a href="/privacy">Learn more</a>
       </p>
       <div className="row">
         <button type="button" className="btn s p" onClick={() => close(false)}>Got it</button>
