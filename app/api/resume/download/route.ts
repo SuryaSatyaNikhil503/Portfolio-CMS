@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // fetch the current résumé on every download (it was frozen at build time before)
+
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import cloudinary from "@/lib/cloudinary";

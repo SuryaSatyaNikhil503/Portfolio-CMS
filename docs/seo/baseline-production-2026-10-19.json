@@ -1,0 +1,1558 @@
+{
+ "/": {
+  "status": 200,
+  "title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+  "description": "Surya Satya Nikhil Gadhavajula — Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD. Explore projects, technical articles, and professional experience.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Software Developer"
+  ],
+  "headings": [
+   [
+    1,
+    "Software Developer"
+   ],
+   [
+    2,
+    "What I Do"
+   ],
+   [
+    3,
+    "Scalable Backend Systems"
+   ],
+   [
+    3,
+    "Frontend & Full-Stack"
+   ],
+   [
+    3,
+    "CI/CD & DevOps"
+   ],
+   [
+    3,
+    "Technical Writing"
+   ],
+   [
+    3,
+    "Interested in working together?"
+   ],
+   [
+    2,
+    "Stay in the Loop"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/about": {
+  "status": 200,
+  "title": "About | Surya Satya Nikhil Gadhavajula",
+  "description": "Learn more about me, my background, and what drives me.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "About Me"
+  ],
+  "headings": [
+   [
+    1,
+    "About Me"
+   ],
+   [
+    2,
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   [
+    2,
+    "What Drives Me"
+   ],
+   [
+    3,
+    "Clean Code"
+   ],
+   [
+    3,
+    "Continuous Learning"
+   ],
+   [
+    3,
+    "Problem Solving"
+   ],
+   [
+    3,
+    "Open Source"
+   ],
+   [
+    3,
+    "Let's Build Something Together"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/api/resume/download",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/skills": {
+  "status": 200,
+  "title": "Skills | Surya Satya Nikhil Gadhavajula",
+  "description": "Technologies and tools I work with.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [],
+  "headings": [
+   [
+    2,
+    "Skills & Technologies"
+   ],
+   [
+    3,
+    "Programming Language"
+   ],
+   [
+    3,
+    "Frameworks"
+   ],
+   [
+    3,
+    "Architecture"
+   ],
+   [
+    3,
+    "Database"
+   ],
+   [
+    3,
+    "DevOps"
+   ],
+   [
+    3,
+    "CS Fundamentals"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/experience": {
+  "status": 200,
+  "title": "Experience | Surya Satya Nikhil Gadhavajula",
+  "description": "My professional work history and experience.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [],
+  "headings": [
+   [
+    2,
+    "Experience"
+   ],
+   [
+    3,
+    "Software Developer"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/projects": {
+  "status": 200,
+  "title": "Projects | Surya Satya Nikhil Gadhavajula",
+  "description": "A showcase of my projects and work.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [],
+  "headings": [
+   [
+    2,
+    "Projects"
+   ],
+   [
+    3,
+    "Email Scheduler Application"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/projects/email-scheduler-application",
+   "/skills"
+  ]
+ },
+ "/blogs": {
+  "status": 200,
+  "title": "Blogs | Surya Satya Nikhil Gadhavajula",
+  "description": "Technical articles about system design, software architecture, and modern development.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Surya Satya Nikhil Gadhavajula | Software Developer"
+   ],
+   "og:description": [
+    "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app"
+   ],
+   "og:site_name": [
+    "Surya Satya Nikhil Gadhavajula"
+   ],
+   "og:type": [
+    "website"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [],
+  "headings": [
+   [
+    2,
+    "Blog"
+   ],
+   [
+    3,
+    "Why Software Engineering Fundamentals Matter More Than Ever in the AI Era"
+   ],
+   [
+    3,
+    "RAG is everywhere, but not every problem needs it"
+   ],
+   [
+    3,
+    "AI Agent Traps: 6 Ways the Web Can Hijack Your AI"
+   ],
+   [
+    3,
+    "Claude Mythos: Why Anthropic Won't Release Its Best AI"
+   ],
+   [
+    3,
+    "How Netflix Cut Recommendation Latency 12% with Java Vector API"
+   ],
+   [
+    3,
+    "Seven Days That Felt Like a Decade - What You Should Actually Pay Attention To"
+   ],
+   [
+    3,
+    "Gemma 4: How Google Is Making AI Models More Practical for Developers"
+   ],
+   [
+    3,
+    "Idempotency in Microservices: Why It Matters"
+   ],
+   [
+    3,
+    "How Facebook Scaled Memcache to Handle Billions of Requests Per Second - A Deep Dive into the NSDI 2013 Paper"
+   ],
+   [
+    3,
+    "Idempotency - The Concept That Quietly Saves Your App (And Your Sanity)"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai",
+   "/blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai",
+   "/blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers",
+   "/blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper",
+   "/blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api",
+   "/blogs/idempotency-in-microservices-why-it-matters",
+   "/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity",
+   "/blogs/rag-is-everywhere-but-not-every-problem-needs-it",
+   "/blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to",
+   "/blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers": {
+  "status": 200,
+  "title": "Gemma 4: How Google Is Making AI Models More Practical for Developers | Surya Satya Nikhil Gadhavajula",
+  "description": "Explore Gemma 4 through a system design lens. Understand how lightweight AI models improve latency, reduce infrastructure costs, and enable scalable, reliable AI-powered applications.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Gemma 4: How Google Is Making AI Models More Practical for Developers"
+   ],
+   "og:description": [
+    "Explore Gemma 4 through a system design lens. Understand how lightweight AI models improve latency, reduce infrastructure costs, and enable scalable, reliable AI-powered applications."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775416210/Portfolio-CMS/Blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers/001.jpg"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775416210/Portfolio-CMS/Blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers/001.jpg"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Gemma 4: How Google Is Making AI Models More Practical for Developers"
+  ],
+  "headings": [
+   [
+    1,
+    "Gemma 4: How Google Is Making AI Models More Practical for Developers"
+   ],
+   [
+    2,
+    "What Gemma 4 focuses on"
+   ],
+   [
+    2,
+    "How the system fits together"
+   ],
+   [
+    2,
+    "Why this matters for system design"
+   ],
+   [
+    2,
+    "Scalability and reliability"
+   ],
+   [
+    2,
+    "Trade offs you need to consider"
+   ],
+   [
+    2,
+    "What this means for you"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/idempotency-in-microservices-why-it-matters": {
+  "status": 200,
+  "title": "Idempotency in Microservices: Why It Matters | Surya Satya Nikhil Gadhavajula",
+  "description": "Learn how idempotency protects microservices from duplicate requests, double charges, and retry chaos, with real patterns you can implement today.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/idempotency-in-microservices-why-it-matters",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Idempotency in Microservices: Why It Matters"
+   ],
+   "og:description": [
+    "Learn how idempotency protects microservices from duplicate requests, double charges, and retry chaos, with real patterns you can implement today."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/idempotency-in-microservices-why-it-matters"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775409753/Portfolio-CMS/Blogs/idempotency-in-microservices-why-it-matters/006.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775409753/Portfolio-CMS/Blogs/idempotency-in-microservices-why-it-matters/006.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Idempotency in Microservices: Why It Matters"
+  ],
+  "headings": [
+   [
+    1,
+    "Idempotency in Microservices: Why It Matters"
+   ],
+   [
+    2,
+    "Why Microservices Make This Problem Way Harder"
+   ],
+   [
+    2,
+    "The Danger of Retries Without Idempotency"
+   ],
+   [
+    2,
+    "Idempotency Keys - The Core Solution"
+   ],
+   [
+    2,
+    "Message Delivery Guarantees - Which One Are You Using?"
+   ],
+   [
+    2,
+    "A Real World Example: Order and Payment Services"
+   ],
+   [
+    2,
+    "Where Developers Usually Get This Wrong"
+   ],
+   [
+    2,
+    "Database Patterns That Help"
+   ],
+   [
+    2,
+    "Quick Checklist Before You Ship:"
+   ],
+   [
+    2,
+    "Final Thoughts"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills",
+   "https://suryasatyanikhil.vercel.app/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity"
+  ]
+ },
+ "/blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper": {
+  "status": 200,
+  "title": "How Facebook Scaled Memcache to Handle Billions of Requests Per Second - A Deep Dive into the NSDI 2013 Paper | Surya Satya Nikhil Gadhavajula",
+  "description": "A beginner-to-intermediate breakdown of the famous \"Scaling Memcache at Facebook\" NSDI 2013 research paper, covering look-aside caching, lease tokens, gutter pools, multi-region consistency and everything in between.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "How Facebook Scaled Memcache to Handle Billions of Requests Per Second - A Deep Dive into the NSDI 2013 Paper"
+   ],
+   "og:description": [
+    "A beginner-to-intermediate breakdown of the famous \"Scaling Memcache at Facebook\" NSDI 2013 research paper, covering look-aside caching, lease tokens, gutter pools, multi-region consistency and everything in between."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775395456/Portfolio-CMS/Blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper/006.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775395456/Portfolio-CMS/Blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper/006.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "How Facebook Scaled Memcache to Handle Billions of Requests Per Second - A Deep Dive into the NSDI 2013 Paper"
+  ],
+  "headings": [
+   [
+    1,
+    "How Facebook Scaled Memcache to Handle Billions of Requests Per Second - A Deep Dive into the NSDI 2013 Paper"
+   ],
+   [
+    2,
+    "The Fan-Out Problem - 521 Keys Per Page Load"
+   ],
+   [
+    2,
+    "Lease Tokens - Solving Two Nasty Problems at Once"
+   ],
+   [
+    2,
+    "Memcache Pools - Not All Data is Equal"
+   ],
+   [
+    2,
+    "The Gutter Pool - Handling Server Failures Gracefully"
+   ],
+   [
+    2,
+    "Scaling Within a Region - Multiple Frontend Clusters"
+   ],
+   [
+    2,
+    "Scaling Across Regions - The Consistency Challenge"
+   ],
+   [
+    2,
+    "Performance Optimizations the Paper Covers"
+   ],
+   [
+    2,
+    "Key Lessons Facebook Draws From All This"
+   ],
+   [
+    2,
+    "Why This Paper Still Matters Today"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity": {
+  "status": 200,
+  "title": "Idempotency - The Concept That Quietly Saves Your App (And Your Sanity) | Surya Satya Nikhil Gadhavajula",
+  "description": "What is idempotency, why does it matter in software development, and how does it help you build reliable APIs and systems? A beginner-friendly guide for students and early-career developers.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Idempotency - The Concept That Quietly Saves Your App (And Your Sanity)"
+   ],
+   "og:description": [
+    "What is idempotency, why does it matter in software development, and how does it help you build reliable APIs and systems? A beginner-friendly guide for students and early-career developers."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775287020/Portfolio-CMS/Blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity/006.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775287020/Portfolio-CMS/Blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity/006.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Idempotency - The Concept That Quietly Saves Your App (And Your Sanity)"
+  ],
+  "headings": [
+   [
+    1,
+    "Idempotency - The Concept That Quietly Saves Your App (And Your Sanity)"
+   ],
+   [
+    2,
+    "A Real-World Analogy That Actually Makes Sense"
+   ],
+   [
+    2,
+    "Idempotency in HTTP Methods"
+   ],
+   [
+    2,
+    "Why Should You Actually Care? (The Real-World Stakes)"
+   ],
+   [
+    2,
+    "How Retries and Idempotency Work Together"
+   ],
+   [
+    2,
+    "How to Actually Implement Idempotency"
+   ],
+   [
+    2,
+    "Idempotency in Databases"
+   ],
+   [
+    2,
+    "Common Misconceptions (Because These Trip People Up)"
+   ],
+   [
+    2,
+    "When You Don't Need to Worry About It (Yes, This Exists)"
+   ],
+   [
+    2,
+    "Quick Summary"
+   ],
+   [
+    2,
+    "Final Thoughts"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/projects/email-scheduler-application": {
+  "status": 200,
+  "title": "Email Scheduler Application | Surya Satya Nikhil Gadhavajula",
+  "description": "Email Scheduler Application — Built with Java 17, Spring Boot 3.5.0, Spring Data JPA, Hibernate, Scheduler, MySQL, Java Mail Sender, Maven, React.js",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/projects/email-scheduler-application",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Email Scheduler Application"
+   ],
+   "og:description": [
+    "Email Scheduler Application — Built with Java 17, Spring Boot 3.5.0, Spring Data JPA, Hibernate, Scheduler, MySQL, Java Mail Sender, Maven, React.js"
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/projects/email-scheduler-application"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems."
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Email Scheduler Application"
+  ],
+  "headings": [
+   [
+    1,
+    "Email Scheduler Application"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era": {
+  "status": 200,
+  "title": "Why Software Engineering Fundamentals Matter More Than Ever in the AI Era | Surya Satya Nikhil Gadhavajula",
+  "description": "Learn why software engineering fundamentals still matter in the AI era. Understand system design, clean architecture, TDD, deep modules, and how developers should work with AI effectively.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Why Software Engineering Fundamentals Matter More Than Ever in the AI Era"
+   ],
+   "og:description": [
+    "Learn why software engineering fundamentals still matter in the AI era. Understand system design, clean architecture, TDD, deep modules, and how developers should work with AI effectively."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1780047873/Portfolio-CMS/Blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era/004.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1780047873/Portfolio-CMS/Blogs/why-software-engineering-fundamentals-matter-more-than-ever-in-the-ai-era/004.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Why Software Engineering Fundamentals Matter More Than Ever in the AI Era",
+   "AI can write code, but it cannot automatically build good systems",
+   "The real danger of AI generated code",
+   "AI should be your tactical assistant, not your architect",
+   "Why software engineering fundamentals matter at any time",
+   "What every CS People should learn in the AI era",
+   "Deep modules vs shallow modules",
+   "Why system design matters more than ever",
+   "AI does not remove engineering discipline",
+   "The future developer will look different",
+   "Final Thoughts",
+   "Credits and Inspiration"
+  ],
+  "headings": [
+   [
+    1,
+    "Why Software Engineering Fundamentals Matter More Than Ever in the AI Era"
+   ],
+   [
+    1,
+    "AI can write code, but it cannot automatically build good systems"
+   ],
+   [
+    1,
+    "The real danger of AI generated code"
+   ],
+   [
+    1,
+    "AI should be your tactical assistant, not your architect"
+   ],
+   [
+    1,
+    "Why software engineering fundamentals matter at any time"
+   ],
+   [
+    1,
+    "What every CS People should learn in the AI era"
+   ],
+   [
+    2,
+    "1. Data Structures and Algorithms"
+   ],
+   [
+    2,
+    "2. System Design"
+   ],
+   [
+    2,
+    "3. Clean Code and Architecture"
+   ],
+   [
+    2,
+    "4. Testing and TDD"
+   ],
+   [
+    2,
+    "5. Communication and Domain Understanding"
+   ],
+   [
+    1,
+    "Deep modules vs shallow modules"
+   ],
+   [
+    1,
+    "Why system design matters more than ever"
+   ],
+   [
+    1,
+    "AI does not remove engineering discipline"
+   ],
+   [
+    1,
+    "The future developer will look different"
+   ],
+   [
+    1,
+    "Final Thoughts"
+   ],
+   [
+    1,
+    "Credits and Inspiration"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/rag-is-everywhere-but-not-every-problem-needs-it": {
+  "status": 200,
+  "title": "RAG is everywhere, but not every problem needs it | Surya Satya Nikhil Gadhavajula",
+  "description": "Learn about RAG in simple way. Understand what it is, where it works best, where it fails, and how to measure RAG performance with practical metrics",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/rag-is-everywhere-but-not-every-problem-needs-it",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "RAG is everywhere, but not every problem needs it"
+   ],
+   "og:description": [
+    "Learn about RAG in simple way. Understand what it is, where it works best, where it fails, and how to measure RAG performance with practical metrics"
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/rag-is-everywhere-but-not-every-problem-needs-it"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1779797665/Portfolio-CMS/Blogs/rag-is-everywhere-but-not-every-problem-needs-it/001.jpg"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1779797665/Portfolio-CMS/Blogs/rag-is-everywhere-but-not-every-problem-needs-it/001.jpg"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "RAG is everywhere, but not every problem needs it",
+   "What exactly happens in RAG",
+   "Why people like RAG",
+   "Where RAG is useful",
+   "Where RAG is not the right tool",
+   "A simple example to make this clear",
+   "What makes a good RAG system",
+   "How to measure RAG performance",
+   "A practical way to evaluate RAG",
+   "Common mistakes teams make",
+   "Final thought"
+  ],
+  "headings": [
+   [
+    1,
+    "RAG is everywhere, but not every problem needs it"
+   ],
+   [
+    1,
+    "What exactly happens in RAG"
+   ],
+   [
+    1,
+    "Why people like RAG"
+   ],
+   [
+    1,
+    "Where RAG is useful"
+   ],
+   [
+    1,
+    "Where RAG is not the right tool"
+   ],
+   [
+    1,
+    "A simple example to make this clear"
+   ],
+   [
+    1,
+    "What makes a good RAG system"
+   ],
+   [
+    1,
+    "How to measure RAG performance"
+   ],
+   [
+    2,
+    "Retrieval metrics"
+   ],
+   [
+    2,
+    "Answer quality metrics"
+   ],
+   [
+    2,
+    "Operational metrics"
+   ],
+   [
+    1,
+    "A practical way to evaluate RAG"
+   ],
+   [
+    1,
+    "Common mistakes teams make"
+   ],
+   [
+    1,
+    "Final thought"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai": {
+  "status": 200,
+  "title": "AI Agent Traps: 6 Ways the Web Can Hijack Your AI | Surya Satya Nikhil Gadhavajula",
+  "description": "Google DeepMind mapped 6 attack types that turn websites into weapons against AI agents. From hidden CSS injections to digital flash crashes, here's the full breakdown.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "AI Agent Traps: 6 Ways the Web Can Hijack Your AI"
+   ],
+   "og:description": [
+    "Google DeepMind mapped 6 attack types that turn websites into weapons against AI agents. From hidden CSS injections to digital flash crashes, here's the full breakdown."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1776484760/Portfolio-CMS/Blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai/002.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1776484760/Portfolio-CMS/Blogs/ai-agent-traps-6-ways-the-web-can-hijack-your-ai/002.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "AI Agent Traps: 6 Ways the Web Can Hijack Your AI"
+  ],
+  "headings": [
+   [
+    1,
+    "AI Agent Traps: 6 Ways the Web Can Hijack Your AI"
+   ],
+   [
+    2,
+    "The Big Picture (Why This Matters Now)"
+   ],
+   [
+    2,
+    "Under the Hood: The Six Trap Categories"
+   ],
+   [
+    3,
+    "1. Content Injection Traps (Target: Perception)"
+   ],
+   [
+    3,
+    "2. Semantic Manipulation Traps (Target: Reasoning)"
+   ],
+   [
+    3,
+    "3. Cognitive State Traps (Target: Memory and Learning)"
+   ],
+   [
+    3,
+    "4. Behavioural Control Traps (Target: Action)"
+   ],
+   [
+    3,
+    "5. Systemic Traps (Target: Multi-Agent Dynamics)"
+   ],
+   [
+    3,
+    "6. Human-in-the-Loop Traps (Target: Human Overseer)"
+   ],
+   [
+    2,
+    "The Three Layers of Defence"
+   ],
+   [
+    2,
+    "The Uncomfortable Reality"
+   ],
+   [
+    2,
+    "The Takeaway"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai": {
+  "status": 200,
+  "title": "Claude Mythos: Why Anthropic Won't Release Its Best AI | Surya Satya Nikhil Gadhavajula",
+  "description": "Claude Mythos Preview scores 93.9% SWE-bench, found thousands of zero-days, and escaped its sandbox. Here's why Anthropic locked it behind Project Glasswing.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Claude Mythos: Why Anthropic Won't Release Its Best AI"
+   ],
+   "og:description": [
+    "Claude Mythos Preview scores 93.9% SWE-bench, found thousands of zero-days, and escaped its sandbox. Here's why Anthropic locked it behind Project Glasswing."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775806123/Portfolio-CMS/Blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai/002.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775806123/Portfolio-CMS/Blogs/claude-mythos-why-anthropic-won-t-release-its-best-ai/002.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Claude Mythos: Why Anthropic Won't Release Its Best AI"
+  ],
+  "headings": [
+   [
+    1,
+    "Claude Mythos: Why Anthropic Won't Release Its Best AI"
+   ],
+   [
+    2,
+    "Let's break it down simply"
+   ],
+   [
+    2,
+    "What Even Is Claude Mythos?"
+   ],
+   [
+    2,
+    "Under the Hood: The Benchmark Numbers Are Absurd"
+   ],
+   [
+    2,
+    "Project Glasswing: What It Actually Is"
+   ],
+   [
+    2,
+    "Why It's Not Public: The Safety Stuff Gets Real"
+   ],
+   [
+    2,
+    "How Mythos Compares to Other Models"
+   ],
+   [
+    2,
+    "The Pricing (For Those Who Get Access)"
+   ],
+   [
+    2,
+    "The Trade-Offs: What's Not Great About This Approach"
+   ],
+   [
+    2,
+    "The Takeaway"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api": {
+  "status": 200,
+  "title": "How Netflix Cut Recommendation Latency 12% with Java Vector API | Surya Satya Nikhil Gadhavajula",
+  "description": "Netflix slashed 12% latency and 7% CPU from their Ranker service by replacing scalar dot products with JDK Vector API SIMD matrix multiplies. Here's how.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "How Netflix Cut Recommendation Latency 12% with Java Vector API"
+   ],
+   "og:description": [
+    "Netflix slashed 12% latency and 7% CPU from their Ranker service by replacing scalar dot products with JDK Vector API SIMD matrix multiplies. Here's how."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775548849/Portfolio-CMS/Blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api/004.png"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775548849/Portfolio-CMS/Blogs/how-netflix-cut-recommendation-latency-12-with-java-vector-api/004.png"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "How Netflix Cut Recommendation Latency 12% with Java Vector API"
+  ],
+  "headings": [
+   [
+    1,
+    "How Netflix Cut Recommendation Latency 12% with Java Vector API"
+   ],
+   [
+    2,
+    "The Story Version"
+   ],
+   [
+    2,
+    "Wait, What Even Is \"Serendipity Scoring\"?"
+   ],
+   [
+    2,
+    "Under the Hood: The Old Approach (And Why It Was Expensive)"
+   ],
+   [
+    2,
+    "The Optimization Journey (It Wasn't a Straight Line)"
+   ],
+   [
+    3,
+    "Step 1: Introduce Batching"
+   ],
+   [
+    3,
+    "Step 2: Fix the Memory Layout"
+   ],
+   [
+    3,
+    "Step 3: Try BLAS (This Didn't Pan Out)"
+   ],
+   [
+    3,
+    "Step 4: The JDK Vector API (This Is the One)"
+   ],
+   [
+    2,
+    "The Results (In Actual Numbers)"
+   ],
+   [
+    2,
+    "The Trade-offs: When You Shouldn't Do This"
+   ],
+   [
+    2,
+    "The Takeaway"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to": {
+  "status": 200,
+  "title": "Seven Days That Felt Like a Decade - What You Should Actually Pay Attention To | Surya Satya Nikhil Gadhavajula",
+  "description": "A detailed breakdown of major tech events from the past week including OpenAI funding, Claude AI advancements, and system design shifts in AI infrastructure. Learn how these changes impact scalability, performance, and real-world software systems.",
+  "robots": null,
+  "canonical": "https://suryasatyanikhil.vercel.app/blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to",
+  "lang": "en",
+  "og": {
+   "og:title": [
+    "Seven Days That Felt Like a Decade - What You Should Actually Pay Attention To"
+   ],
+   "og:description": [
+    "A detailed breakdown of major tech events from the past week including OpenAI funding, Claude AI advancements, and system design shifts in AI infrastructure. Learn how these changes impact scalability, performance, and real-world software systems."
+   ],
+   "og:url": [
+    "https://suryasatyanikhil.vercel.app/blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to"
+   ],
+   "og:image": [
+    "https://res.cloudinary.com/dupjlccpj/image/upload/v1775470848/Portfolio-CMS/Blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to/001.webp"
+   ],
+   "og:type": [
+    "article"
+   ]
+  },
+  "twitter": {
+   "twitter:card": "summary_large_image",
+   "twitter:title": "Surya Satya Nikhil Gadhavajula | Software Developer",
+   "twitter:description": "Software Developer specializing in Spring Boot, React, microservices, and scalable backend systems.",
+   "twitter:image": "https://res.cloudinary.com/dupjlccpj/image/upload/v1775470848/Portfolio-CMS/Blogs/seven-days-that-felt-like-a-decade-what-you-should-actually-pay-attention-to/001.webp"
+  },
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Surya Satya Nikhil Gadhavajula\",\"alternateName\":[\"Surya Satya Nikhil\",\"Nikhil Gadhavajula\",\"Nikhil\"],\"url\":\"https://suryasatyanikhil.vercel.app\",\"jobTitle\":\"Software Developer\",\"description\":\"Software Developer specializing in Spring Boot, React, microservices, scalable backend systems, and CI/CD.\",\"sameAs\":[\"https://github.com/SuryaSatyaNikhil503\",\"https://www.linkedin.com/in/gssnikhil/\"]}"
+  ],
+  "h1": [
+   "Seven Days That Felt Like a Decade - What You Should Actually Pay Attention To"
+  ],
+  "headings": [
+   [
+    1,
+    "Seven Days That Felt Like a Decade - What You Should Actually Pay Attention To"
+   ],
+   [
+    2,
+    "1.) Funding"
+   ],
+   [
+    2,
+    "2.) Media & Acquisition"
+   ],
+   [
+    2,
+    "3.) Product Launches"
+   ],
+   [
+    2,
+    "4.) The Turbulence"
+   ],
+   [
+    2,
+    "5.) The infrastructure"
+   ],
+   [
+    2,
+    "What this week tells you"
+   ],
+   [
+    3,
+    "Enjoyed this article?"
+   ],
+   [
+    2,
+    "Comments"
+   ],
+   [
+    3,
+    "Leave a Comment"
+   ]
+  ],
+  "imagesWithoutAlt": 0,
+  "internalLinks": [
+   "/",
+   "/about",
+   "/blogs",
+   "/experience",
+   "/projects",
+   "/skills"
+  ]
+ },
+ "/robots.txt": {
+  "status": 200,
+  "raw": "User-Agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: https://suryasatyanikhil.vercel.app/sitemap.xml\n"
+ },
+ "/sitemap.xml": {
+  "status": 200,
+  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url>\n<loc>https://suryasatyanikhil.vercel.app</loc>\n<lastmod/>\n<changefreq>weekly</changefreq>\n<priority>1</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/about</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.8</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/projects</loc>\n<lastmod/>\n<changefreq>weekly</changefreq>\n<priority>0.9</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/blogs</loc>\n<lastmod/>\n<changefreq>daily</changefreq>\n<priority>0.9</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/blogs/gemma-4-how-google-is-making-ai-models-more-practical-for-developers</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.7</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/blogs/idempotency-in-microservices-why-it-matters</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.7</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/blogs/how-facebook-scaled-memcache-to-handle-billions-of-requests-per-second-a-deep-dive-into-the-nsdi-2013-paper</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.7</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/blogs/idempotency-the-concept-that-quietly-saves-your-app-and-your-sanity</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.7</priority>\n</url>\n<url>\n<loc>https://suryasatyanikhil.vercel.app/projects/email-scheduler-application</loc>\n<lastmod/>\n<changefreq>monthly</changefreq>\n<priority>0.7</priority>\n</url>\n</urlset>\n"
+ }
+}

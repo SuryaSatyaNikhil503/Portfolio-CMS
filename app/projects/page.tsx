@@ -1,7 +1,8 @@
 import { Metadata } from "next";
-import SectionHeading from "@/components/SectionHeading";
 import ProjectCard from "@/components/ProjectCard";
 import prisma from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
+import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -36,40 +37,45 @@ async function getProjects() {
 }
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+  const [projects, admin] = await Promise.all([getProjects(), getAuthUser().catch(() => null)]);
 
   return (
-    <div className="section-padding">
-      <div className="container-width">
-        <SectionHeading
-          title="Projects"
-          subtitle="A selection of projects that showcase my skills and interests"
-        />
-
-        {projects.length === 0 ? (
-          <div className="glass rounded-2xl p-12 text-center max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground">
-              No projects to display yet. Check back soon!
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map(
-              (project: {
-                slug: string;
-                title: string;
-                techStack: string[];
-                githubLink: string;
-                liveDemoLink: string;
-                featured: boolean;
-                thumbnail: string;
-              }) => (
-                <ProjectCard key={project.slug} {...project} />
-              )
-            )}
-          </div>
-        )}
+    <>
+      <div className="pagehead">
+        <h2 className="eyebrow">Projects</h2>
+        <p className="display">Things I&apos;ve <span style={{ color: "var(--primary)" }}>built</span></p>
+        <p className="lead">A selection of projects that showcase my skills and interests</p>
       </div>
-    </div>
+      <section className="sec">
+        <div className="wrapw">
+          {projects.length === 0 && !admin ? (
+            <p className="muted">No projects to display yet. Check back soon!</p>
+          ) : (
+            <div className="grid3">
+              {projects.map((project, i) => (
+                <ProjectCard
+                  key={project.slug}
+                  title={project.title}
+                  slug={project.slug}
+                  thumbnail={project.thumbnail}
+                  techStack={project.techStack}
+                  githubLink={project.githubLink}
+                  liveDemoLink={project.liveDemoLink}
+                  featured={project.featured}
+                  index={i + 1}
+                />
+              ))}
+              {admin && (
+                <a href="/admin/projects" className="bcard addcard">
+                  <span><Icon name="plus" size={20} /></span>
+                  <b>Add a project</b>
+                  <span>Only you see this card.</span>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }

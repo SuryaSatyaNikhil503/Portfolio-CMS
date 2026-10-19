@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import SectionHeading from "@/components/SectionHeading";
-import BlogCard from "@/components/BlogCard";
+import BlogsExplorer from "@/components/blog/BlogsExplorer";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
@@ -16,14 +15,7 @@ async function getBlogs() {
     const blogs = await prisma.blog.findMany({
       where: { published: true },
       orderBy: { createdAt: "desc" },
-      select: {
-        title: true,
-        slug: true,
-        excerpt: true,
-        thumbnail: true,
-        createdAt: true,
-        _count: { select: { views: true } },
-      },
+      select: { title: true, slug: true, excerpt: true, thumbnail: true, tags: true, readingTime: true, createdAt: true },
     });
     return blogs;
   } catch (error) {
@@ -36,33 +28,21 @@ export default async function BlogsPage() {
   const blogs = await getBlogs();
 
   return (
-    <div className="section-padding">
-      <div className="container-width">
-        <SectionHeading
-          title="Blog"
-          subtitle="Technical articles on system design, architecture, and software development"
-        />
-
-        {blogs.length === 0 ? (
-          <div className="glass rounded-2xl p-12 text-center max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground">No posts to display yet. Check back soon!</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((blog) => (
-              <BlogCard
-                key={blog.slug}
-                title={blog.title}
-                slug={blog.slug}
-                excerpt={blog.excerpt}
-                thumbnail={blog.thumbnail}
-                createdAt={blog.createdAt.toISOString()}
-                viewCount={blog._count.views}
-              />
-            ))}
-          </div>
-        )}
+    <>
+      <div className="pagehead">
+        <h2 className="eyebrow">Blog</h2>
+        <p className="display">Notes on <span style={{ color: "var(--primary)" }}>systems &amp; AI</span></p>
+        <p className="lead">Technical articles on system design, architecture, and software development</p>
       </div>
-    </div>
+      <section className="sec" style={{ paddingTop: 20 }}>
+        <div className="wrapw">
+          {blogs.length === 0 ? (
+            <p className="muted">No posts to display yet. Check back soon!</p>
+          ) : (
+            <BlogsExplorer blogs={blogs.map((b) => ({ ...b, createdAt: b.createdAt.toISOString() }))} />
+          )}
+        </div>
+      </section>
+    </>
   );
 }

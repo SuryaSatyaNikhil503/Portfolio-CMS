@@ -1,41 +1,43 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import PageHead from "@/components/admin/PageHead";
+import Icon from "@/components/ui/Icon";
+
+const TipTapEditor = dynamic(() => import("@/editor/TipTapEditor"), {
+  ssr: false,
+  loading: () => <div className="acard"><p className="muted" style={{ margin: 0 }}>Loading editor…</p></div>,
+});
 
 interface Project {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  techStack: string[];
-  githubLink: string;
-  liveDemoLink: string;
-  featured: boolean;
-  createdAt: string;
+  id: string; title: string; slug: string; thumbnail: string; techStack: string[]; githubLink: string; liveDemoLink: string; featured: boolean; hasDescription: boolean;
 }
+const EMPTY_DOC = { type: "doc", content: [] };
 
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [editingSlug, setEditingSlug] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [techStack, setTechStack] = useState("");
   const [githubLink, setGithubLink] = useState("");
   const [liveDemoLink, setLiveDemoLink] = useState("");
   const [featured, setFeatured] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [description, setDescription] = useState<object>(EMPTY_DOC);
+  const [editorKey, setEditorKey] = useState(0);
+  const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const thumbnailInputRef = useRef<HTMLInputElement>(null);
+  const thumbRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  useEffect(() => { fetchProjects(); }, []);
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch("/api/projects");
+      const res = await fetch("/api/admin/projects");
       const data = await res.json();
       setProjects(data.projects || []);
     } catch (error) {
@@ -45,14 +47,20 @@ export default function AdminProjectsPage() {
     }
   };
 
+  const reset = () => { setOpen(false); setEditingSlug(null); setTitle(""); setTechStack(""); setGithubLink(""); setLiveDemoLink(""); setFeatured(false); setThumbnailUrl(""); setDescription(EMPTY_DOC); setEditorKey((k) => k + 1); };
+
+  const startEdit = async (p: Project) => {
+    const res = await fetch(`/api/projects/${p.slug}`);
+    const data = await res.json();
+    setEditingSlug(p.slug); setTitle(p.title); setTechStack(p.techStack.join(", ")); setGithubLink(p.githubLink); setLiveDemoLink(p.liveDemoLink); setFeatured(p.featured); setThumbnailUrl(p.thumbnail);
+    setDescription(data.project?.description ?? EMPTY_DOC); setEditorKey((k) => k + 1); setOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleThumbnailUpload = async (file: File) => {
-    setUploadingThumbnail(true);
+    setUploading(true);
     try {
-      // Generate slug from title for folder naming
-      const slug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "") || "untitled";
+      const slug = editingSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "untitled";
       const formData = new FormData();
       formData.append("file", file);
       formData.append("context", `project:${slug}`);
@@ -62,42 +70,27 @@ export default function AdminProjectsPage() {
     } catch (error) {
       console.error("Upload error:", error);
     } finally {
-      setUploadingThumbnail(false);
+      setUploading(false);
     }
   };
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title,
-          thumbnail: thumbnailUrl,
-          techStack: techStack.split(",").map((t) => t.trim()).filter(Boolean),
-          githubLink,
-          liveDemoLink,
-          featured,
-          description: { type: "doc", content: [] },
-        }),
-      });
-      if (res.ok) {
-        setTitle("");
-        setTechStack("");
-        setGithubLink("");
-        setLiveDemoLink("");
-        setFeatured(false);
-        setThumbnailUrl("");
-        setShowForm(false);
-        fetchProjects();
-      }
+      const body = { title, thumbnail: thumbnailUrl, techStack: techStack.split(",").map((t) => t.trim()).filter(Boolean), githubLink, liveDemoLink, featured, description };
+      const res = await fetch(editingSlug ? `/api/projects/${editingSlug}` : "/api/projects", { method: editingSlug ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      if (res.ok) { reset(); fetchProjects(); }
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setSaving(false);
     }
+  };
+
+  const toggleFeatured = async (p: Project) => {
+    await fetch(`/api/projects/${p.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ featured: !p.featured }) });
+    setProjects(projects.map((x) => (x.id === p.id ? { ...x, featured: !p.featured } : x)));
   };
 
   const deleteProject = async (slug: string) => {
@@ -111,137 +104,71 @@ export default function AdminProjectsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Projects</h1>
-          <p className="text-muted-foreground text-sm mt-1">Manage your portfolio projects</p>
-        </div>
-        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm gap-2">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-          New Project
-        </button>
-      </div>
+    <>
+      <PageHead title="Projects" sub={`${projects.length} project${projects.length !== 1 ? "s" : ""}`} actions={!open ? <button type="button" className="btn p" onClick={() => setOpen(true)}><Icon name="plus" size={16} /> Add project</button> : undefined} />
 
-      {showForm && (
-        <form onSubmit={handleCreate} className="glass rounded-2xl p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Title</label>
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Project title" className="input-field" required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Tech Stack (comma separated)</label>
-              <input type="text" value={techStack} onChange={(e) => setTechStack(e.target.value)} placeholder="React, Node.js, PostgreSQL" className="input-field" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">GitHub Link</label>
-              <input type="text" value={githubLink} onChange={(e) => setGithubLink(e.target.value)} placeholder="https://github.com/..." className="input-field" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Live Demo Link</label>
-              <input type="text" value={liveDemoLink} onChange={(e) => setLiveDemoLink(e.target.value)} placeholder="https://..." className="input-field" />
-            </div>
-          </div>
-
-          {/* Thumbnail upload */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Thumbnail</label>
-            <input
-              ref={thumbnailInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleThumbnailUpload(file);
-              }}
-            />
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => thumbnailInputRef.current?.click()}
-                disabled={uploadingThumbnail}
-                className="btn-outline text-sm disabled:opacity-50"
-              >
-                {uploadingThumbnail ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                    Uploading...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    Upload Thumbnail
-                  </span>
-                )}
+      {open && (
+        <form onSubmit={handleSave} className="acard">
+          <div className="hd"><h3>{editingSlug ? "Edit project" : "Add project"}</h3></div>
+          <input ref={thumbRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) handleThumbnailUpload(f); e.target.value = ""; }} />
+          <div className="formgrid">
+            <div className="full"><label className="label" htmlFor="p-title">Title</label><input id="p-title" className="in" value={title} onChange={(e) => setTitle(e.target.value)} required /></div>
+            <div className="full"><label className="label" htmlFor="p-tech">Tech stack <span className="muted">(comma separated)</span></label><input id="p-tech" className="in" value={techStack} onChange={(e) => setTechStack(e.target.value)} placeholder="Java 17, Spring Boot, MySQL" /></div>
+            <div><label className="label" htmlFor="p-gh">GitHub link</label><input id="p-gh" className="in" value={githubLink} onChange={(e) => setGithubLink(e.target.value)} /></div>
+            <div><label className="label" htmlFor="p-live">Live demo link</label><input id="p-live" className="in" value={liveDemoLink} onChange={(e) => setLiveDemoLink(e.target.value)} /></div>
+            <div className="full" style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
+              <button type="button" className="btn" onClick={() => thumbRef.current?.click()} disabled={uploading}>
+                {thumbnailUrl ? <Image src={thumbnailUrl} alt="Thumbnail preview" width={18} height={18} style={{ objectFit: "cover", borderRadius: 3 }} /> : <Icon name="image" size={16} />} {uploading ? "Uploading…" : thumbnailUrl ? "Change thumbnail" : "Upload thumbnail"}
               </button>
-              {thumbnailUrl && (
-                <Image src={thumbnailUrl} alt="Thumbnail preview" width={48} height={48} className="w-12 h-12 rounded-lg object-cover" />
-              )}
+              <label className="switch" role="switch" aria-checked={featured} tabIndex={0} onClick={() => setFeatured((v) => !v)} onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); setFeatured((v) => !v); } }}>
+                <span className={"tr" + (featured ? "" : " off")} /><span><b>Featured</b></span>
+              </label>
+            </div>
+            <div className="full">
+              <label className="label">Description <span className="muted">(shown on the project page)</span></label>
+              <TipTapEditor key={editorKey} content={description} onChange={setDescription} blogSlug={editingSlug ?? undefined} />
             </div>
           </div>
-
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} className="w-4 h-4 rounded accent-primary" />
-            <span className="text-sm text-foreground">Featured Project</span>
-          </label>
-          <div className="flex gap-3">
-            <button type="submit" disabled={saving} className="btn-primary text-sm disabled:opacity-50">
-              {saving ? "Creating..." : "Create Project"}
-            </button>
-            <button type="button" onClick={() => setShowForm(false)} className="btn-outline text-sm">Cancel</button>
+          <div className="toolbar" style={{ marginTop: 14 }}>
+            <button type="submit" className="btn p" disabled={saving}><Icon name="check" size={16} /> {saving ? "Saving…" : editingSlug ? "Save project" : "Add project"}</button>
+            <button type="button" className="btn" onClick={reset}>Cancel</button>
           </div>
         </form>
       )}
 
       {loading ? (
-        <div className="glass rounded-2xl p-12 text-center">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-        </div>
+        <div className="acard"><p className="muted" style={{ margin: 0 }}>Loading projects…</p></div>
       ) : projects.length === 0 ? (
-        <div className="glass rounded-2xl p-12 text-center">
-          <h3 className="text-lg font-semibold text-foreground mb-2">No projects yet</h3>
-          <p className="text-sm text-muted-foreground">Add your first project above.</p>
-        </div>
+        <div className="acard"><p className="muted" style={{ margin: 0 }}>No projects yet. Add your first project above.</p></div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {projects.map((project) => (
-            <div key={project.id} className="glass rounded-2xl p-5 card-hover">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-start gap-3">
-                  {project.thumbnail && (
-                    <Image src={project.thumbnail} alt={project.title} width={48} height={48} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
-                  )}
-                  <div>
-                    <h3 className="font-semibold text-foreground">{project.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{new Date(project.createdAt).toLocaleDateString()}</p>
-                  </div>
-                </div>
-                <button onClick={() => deleteProject(project.slug)} className="p-1.5 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-400 transition-colors">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {project.techStack.map((tech) => (
-                  <span key={tech} className="badge text-[10px]">{tech}</span>
+        <div className="acard">
+          <div className="tblwrap">
+            <table className="tbl">
+              <thead><tr><th>Project</th><th>Stack</th><th>Featured</th><th>Links</th><th /></tr></thead>
+              <tbody>
+                {projects.map((p) => (
+                  <tr key={p.id}>
+                    <td className="tt">
+                      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                        {p.thumbnail ? <Image src={p.thumbnail} alt="" width={54} height={40} style={{ width: 54, height: 40, objectFit: "cover", borderRadius: 8, flex: "none" }} /> : <span className="ph v1" style={{ width: 54, height: 40, borderRadius: 8, flex: "none" }} />}
+                        <div>{p.title}<small>/projects/{p.slug}</small></div>
+                      </div>
+                    </td>
+                    <td><div className="chips">{p.techStack.slice(0, 3).map((t) => <span key={t} className="chip mono">{t}</span>)}{p.techStack.length > 3 && <span className="chip mono">+{p.techStack.length - 3}</span>}</div></td>
+                    <td><button type="button" className={"pill " + (p.featured ? "good" : "nodot")} style={{ border: 0, cursor: "pointer" }} onClick={() => toggleFeatured(p)}>{p.featured ? "Featured" : "Off"}</button></td>
+                    <td>{p.githubLink ? <><Icon name="code" size={15} /> <span className="muted">GitHub</span></> : <span className="muted">—</span>}{p.liveDemoLink ? <> · <Icon name="ext" size={14} /> <span className="muted">Live</span></> : null}</td>
+                    <td className="num" style={{ whiteSpace: "nowrap" }}>
+                      {!p.hasDescription && <span className="pill warn" style={{ marginRight: 8 }}>No description</span>}
+                      <button type="button" className="btn s" onClick={() => startEdit(p)}><Icon name="edit" size={14} /> Edit</button>{" "}
+                      <button type="button" className="btn s" onClick={() => deleteProject(p.slug)} aria-label={`Delete ${p.title}`}><Icon name="trash" size={14} /></button>
+                    </td>
+                  </tr>
                 ))}
-              </div>
-              {project.featured && (
-                <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
-                  ★ Featured
-                </span>
-              )}
-            </div>
-          ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

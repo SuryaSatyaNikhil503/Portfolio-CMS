@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import SectionHeading from "@/components/SectionHeading";
 import TimelineItem from "@/components/TimelineItem";
 import prisma from "@/lib/prisma";
 
@@ -12,10 +11,7 @@ export const dynamic = "force-dynamic";
 
 async function getExperiences() {
   try {
-    const experiences = await prisma.experience.findMany({
-      orderBy: { displayOrder: "asc" },
-    });
-    return experiences;
+    return await prisma.experience.findMany({ orderBy: { displayOrder: "asc" } });
   } catch (error) {
     console.error("Error fetching experiences:", error);
     return [];
@@ -26,35 +22,19 @@ export default async function ExperiencePage() {
   const experiences = await getExperiences();
 
   return (
-    <div className="section-padding">
-      <div className="container-width">
-        <SectionHeading
-          title="Experience"
-          subtitle="My professional journey and the companies I've worked with"
-        />
-
-        {experiences.length === 0 ? (
-          <div className="glass rounded-2xl p-12 text-center max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground">
-              No experience to display yet. Check back soon!
-            </p>
-          </div>
-        ) : (
-          <div className="max-w-3xl mx-auto">
-            {experiences.map(
-              (
-                exp: {
-                  id: string;
-                  company: string;
-                  role: string;
-                  companyLogo: string;
-                  location: string;
-                  startDate: string;
-                  endDate: string;
-                  description: string;
-                },
-                index: number
-              ) => (
+    <>
+      <div className="pagehead">
+        <h2 className="eyebrow">Experience</h2>
+        <p className="display">Where I&apos;ve <span style={{ color: "var(--primary)" }}>worked</span></p>
+        <p className="lead">My professional journey and the companies I&apos;ve worked with</p>
+      </div>
+      <section className="sec">
+        <div className="wrapw">
+          {experiences.length === 0 ? (
+            <p className="muted">No experience to display yet. Check back soon!</p>
+          ) : (
+            <div className="tl">
+              {experiences.map((exp, index) => (
                 <TimelineItem
                   key={exp.id}
                   company={exp.company}
@@ -66,11 +46,11 @@ export default async function ExperiencePage() {
                   description={exp.description}
                   isLast={index === experiences.length - 1}
                 />
-              )
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }

@@ -25,6 +25,7 @@ model About {
   profileImage String   @default("")
   bio          Json     @default("{}")
   resumeLink   String   @default("")
+  openToWork   Boolean  @default(true)
   githubUrl    String   @default("")
   linkedinUrl  String   @default("")
   createdAt    DateTime @default(now())
@@ -47,6 +48,7 @@ model Blog {
   updatedAt   DateTime   @updatedAt
   views       BlogView[]
   comments    Comment[]
+  pageViews   PageView[]
 
   @@map("blogs")
 }
@@ -103,6 +105,7 @@ model Subscriber {
   location     String   @default("")
   phone        String   @default("")
   subscribedAt DateTime @default(now())
+  sessions     VisitSession[]
 
   @@map("subscribers")
 }
@@ -145,4 +148,61 @@ model CommentReaction {
   createdAt DateTime @default(now())
 
   @@map("comment_reactions")
+}
+
+// ---- Visitor analytics (anonymous: no IP address, no cookies, no identifiers) ----
+
+model VisitSession {
+  id           String       @id // random id the browser keeps in sessionStorage; gone when the tab closes
+  startedAt    DateTime     @default(now())
+  lastSeenAt   DateTime     @default(now())
+  source       String       @default("Direct")
+  referrerHost String       @default("")
+  referrer     String       @default("") // scheme + host + path only, never the query string
+  device       String       @default("desktop")
+  os           String       @default("")
+  browser      String       @default("")
+  country      String       @default("")
+  city         String       @default("")
+  subscriberId String? // set only when the visitor ticked "let me see which pages I read" while subscribing
+  subscriber   Subscriber?  @relation(fields: [subscriberId], references: [id], onDelete: SetNull)
+  views        PageView[]
+  events       VisitEvent[]
+
+  @@index([startedAt])
+  @@index([lastSeenAt])
+  @@index([source])
+  @@map("visit_sessions")
+}
+
+model PageView {
+  id            String       @id @default(cuid())
+  sessionId     String
+  session       VisitSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  path          String
+  title         String       @default("")
+  blogId        String?
+  blog          Blog?        @relation(fields: [blogId], references: [id], onDelete: SetNull)
+  seq           Int
+  enteredAt     DateTime     @default(now())
+  activeSeconds Int          @default(0)
+  scrollDepth   Int          @default(0)
+
+  @@unique([sessionId, seq])
+  @@index([blogId, enteredAt])
+  @@index([enteredAt])
+  @@map("page_views")
+}
+
+model VisitEvent {
+  id        String       @id @default(cuid())
+  sessionId String
+  session   VisitSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  name      String
+  path      String       @default("")
+  createdAt DateTime     @default(now())
+
+  @@index([sessionId])
+  @@index([name, createdAt])
+  @@map("visit_events")
 }
