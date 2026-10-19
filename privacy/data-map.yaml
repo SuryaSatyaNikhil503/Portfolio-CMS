@@ -1,0 +1,82 @@
+# Data map for visitor measurement and subscribers (DPDP Act 2023 working document; legal calls are for counsel).
+# Every personal-data field in the app is listed here with its purpose, retention and where it lives.
+
+data_items:
+  - id: visit.pages
+    description: Pages opened, order, seconds on page, scroll depth (page_views)
+    sensitivity: low
+    source: observed
+    stores: [postgres.page_views]
+    identifiers: none            # joined only by a random per-tab session id
+    purposes: [site_improvement]
+  - id: visit.acquisition
+    description: Source (e.g. LinkedIn), referrer host and path without query string, device, OS, browser (visit_sessions)
+    sensitivity: low
+    source: observed
+    stores: [postgres.visit_sessions]
+    identifiers: none
+    purposes: [site_improvement]
+  - id: visit.place
+    description: Country and city from platform geo headers at request time
+    sensitivity: low
+    source: observed
+    stores: [postgres.visit_sessions.country, postgres.visit_sessions.city]
+    identifiers: none
+    notes: The IP address itself is never read into storage, never hashed, never logged by the app.
+    purposes: [site_improvement]
+  - id: visit.events
+    description: resume_download, newsletter_subscribe, comment (visit_events)
+    sensitivity: low
+    source: observed
+    stores: [postgres.visit_events]
+    purposes: [site_improvement]
+  - id: subscriber.contact
+    description: Name, email, profession, location, phone (subscribers)
+    sensitivity: medium
+    source: user_provided
+    stores: [postgres.subscribers]
+    purposes: [newsletter]
+  - id: subscriber.reading_history_link
+    description: visit_sessions.subscriberId, set only when the visitor ticks the optional box on the subscribe form
+    sensitivity: medium
+    source: user_provided
+    stores: [postgres.visit_sessions.subscriberId]
+    purposes: [understand_subscriber_interest]
+  - id: comment.author
+    description: Comment author name and email (comments)
+    sensitivity: medium
+    source: user_provided
+    stores: [postgres.comments]
+    purposes: [comments]
+
+purposes:
+  - id: site_improvement
+    description: Learn which articles and sources work, privately, in the admin
+    lawful_basis: legitimate_use_pending_counsel   # data is not linked to an identifiable person; counsel to confirm
+    retention: 90 days (automatic: opportunistic cleanup on write and /api/cron/retention)
+    opt_out: Global Privacy Control, Do Not Track, one-click "Turn off" (localStorage), /privacy
+    children_allowed: false  # the site is not directed at children; no behavioural tracking of identified users
+  - id: newsletter
+    description: Email new articles to subscribers
+    lawful_basis: consent
+    retention: until unsubscribed or deleted on request
+  - id: understand_subscriber_interest
+    description: Show the owner which pages one consenting subscriber read in the visit they subscribed
+    lawful_basis: consent                          # separate unticked checkbox, not bundled with the newsletter
+    retention: 90 days (visit data) or until the subscriber is deleted (link is set null)
+  - id: comments
+    description: Display and moderate comments
+    lawful_basis: consent
+    retention: until deleted by the owner on request
+
+processors:
+  - id: vercel
+    role: hosting; its own request logs may contain IP addresses outside the app's control
+  - id: neon
+    role: database (ap-southeast-1)
+  - id: cloudinary
+    role: image and résumé storage
+  - id: gmail
+    role: newsletter delivery
+
+rights_and_contact: /privacy (LinkedIn, GitHub or reply to a newsletter email); respond within 30 days.

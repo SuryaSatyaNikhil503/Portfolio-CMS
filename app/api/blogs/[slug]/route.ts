@@ -2,7 +2,8 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requireAuth, getAuthUser } from "@/lib/auth";
+import { readingTimeFromDoc } from "@/lib/readingTime";
 
 export async function GET(
   request: NextRequest,
@@ -11,7 +12,7 @@ export async function GET(
   try {
     const { slug } = await params;
     const blog = await prisma.blog.findUnique({ where: { slug } });
-    if (!blog) {
+    if (!blog || (!blog.published && !(await getAuthUser().catch(() => null)))) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
     return NextResponse.json({ blog });
@@ -32,7 +33,8 @@ export async function PUT(
     const { slug } = await params;
     const body = await request.json();
 
-    const blog = await prisma.blog.update({ where: { slug }, data: body });
+    const data = body.content ? { ...body, readingTime: readingTimeFromDoc(body.content).label } : body;
+    const blog = await prisma.blog.update({ where: { slug }, data });
 
     return NextResponse.json({ blog });
   } catch (error) {

@@ -31,13 +31,14 @@ export async function POST(request: NextRequest) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com";
     const blogUrl = `${siteUrl}/blogs/${blog.slug}`;
 
+    const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     const html = `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#0E1117;color:#EEF2F7;border-radius:12px;">
-        <h1 style="color:#2ECC8A;margin-bottom:8px;font-size:24px;">New Article Published!</h1>
-        <h2 style="font-size:20px;margin-bottom:12px;color:#EEF2F7;">${blog.title}</h2>
-        ${blog.excerpt ? `<p style="color:#94A3B8;margin-bottom:20px;">${blog.excerpt}</p>` : ""}
-        ${blog.thumbnail ? `<img src="${blog.thumbnail}" alt="${blog.title}" style="width:100%;border-radius:8px;margin-bottom:20px;" />` : ""}
-        <a href="${blogUrl}" style="display:inline-block;background:#2ECC8A;color:#0E1117;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Read Article</a>
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#0B0F1C;color:#EAEEF8;border-radius:12px;">
+        <h1 style="color:#7088FF;margin-bottom:8px;font-size:24px;">New Article Published!</h1>
+        <h2 style="font-size:20px;margin-bottom:12px;color:#EAEEF8;">${esc(blog.title)}</h2>
+        ${blog.excerpt ? `<p style="color:#94A3B8;margin-bottom:20px;">${esc(blog.excerpt)}</p>` : ""}
+        ${blog.thumbnail ? `<img src="${blog.thumbnail}" alt="${esc(blog.title)}" style="width:100%;border-radius:8px;margin-bottom:20px;" />` : ""}
+        <a href="${blogUrl}" style="display:inline-block;background:#7088FF;color:#0B0F1C;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Read Article</a>
         <p style="margin-top:24px;font-size:12px;color:#64748B;">
           You are receiving this because you subscribed to Nikhil's newsletter.
         </p>

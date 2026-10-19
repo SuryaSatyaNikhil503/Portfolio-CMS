@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Portfolio Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Screens"></nav>
+  <main class="main">
+    <div class="bar">
+      <div>
+        <h1 id="screenTitle">Home</h1>
+        <div class="sub" id="screenSub"></div>
+      </div>
+      <div class="ctrls">
+        <span class="seg" role="group" aria-label="Theme">
+          <button type="button" data-theme-btn="light" aria-pressed="true">Light</button>
+          <button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button>
+        </span>
+        <span class="seg" role="group" aria-label="Device">
+          <button type="button" data-device-btn="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-device-btn="phone" aria-pressed="false">Phone</button>
+        </span>
+      </div>
+    </div>
+    <div class="stagewrap"><div class="frame" id="frame" data-theme="light" data-area="public"></div></div>
+    <section class="notes" id="notes" aria-live="polite"></section>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+<script src="lib.js"></script>
+<script src="hero3d.js"></script>
+<script src="public.js"></script>
+<script src="admin.js"></script>
+<script src="system.js"></script>
+<script src="app.js"></script>

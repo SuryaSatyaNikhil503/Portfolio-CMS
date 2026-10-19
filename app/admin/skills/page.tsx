@@ -1,30 +1,30 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
+import PageHead from "@/components/admin/PageHead";
+import Icon from "@/components/ui/Icon";
+import { displaySkill } from "@/lib/stack";
 
-interface Skill {
-  id: string;
-  name: string;
-  icon: string;
-  category: string;
-  displayOrder: number;
-}
+interface Skill { id: string; name: string; icon: string; category: string; displayOrder: number }
+
+const COLORS = ["var(--c1)", "var(--c2)", "var(--c5)", "var(--c3)", "var(--c4)", "var(--c1)"];
+const NEW_CATEGORY = "__new__";
 
 export default function AdminSkillsPage() {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
+  const [newCategory, setNewCategory] = useState("");
   const [iconUrl, setIconUrl] = useState("");
   const [uploadingIcon, setUploadingIcon] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [dragCat, setDragCat] = useState<string | null>(null);
   const iconInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    fetchSkills();
-  }, []);
+  useEffect(() => { fetchSkills(); }, []);
 
   const fetchSkills = async () => {
     try {
@@ -38,11 +38,18 @@ export default function AdminSkillsPage() {
     }
   };
 
+  // Categories in the order they appear on the site (first appearance by displayOrder).
+  const categories = useMemo(() => {
+    const order: string[] = [];
+    for (const s of skills) if (!order.includes(s.category)) order.push(s.category);
+    return order;
+  }, [skills]);
+  const effectiveCategory = category === NEW_CATEGORY ? newCategory.trim() : category || categories[0] || "";
+
+  const resetForm = () => { setEditingId(null); setName(""); setCategory(""); setNewCategory(""); setIconUrl(""); };
+
   const handleIconUpload = async (file: File) => {
-    if (!name) {
-      alert("Please enter the skill name first so the icon is named correctly.");
-      return;
-    }
+    if (!name) { alert("Please enter the skill name first so the icon is named correctly."); return; }
     setUploadingIcon(true);
     try {
       const formData = new FormData();
@@ -58,27 +65,27 @@ export default function AdminSkillsPage() {
     }
   };
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!name.trim() || !effectiveCategory) return;
     setSaving(true);
     try {
       const res = await fetch("/api/skills", {
-        method: "POST",
+        method: editingId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, category, icon: iconUrl }),
+        body: JSON.stringify(editingId ? { id: editingId, name: name.trim(), category: effectiveCategory, icon: iconUrl } : { name: name.trim(), category: effectiveCategory, icon: iconUrl }),
       });
-      if (res.ok) {
-        setName("");
-        setCategory("");
-        setIconUrl("");
-        setShowForm(false);
-        fetchSkills();
-      }
+      if (res.ok) { resetForm(); fetchSkills(); }
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setSaving(false);
     }
+  };
+
+  const startEdit = (s: Skill) => {
+    setEditingId(s.id); setName(s.name); setCategory(s.category); setIconUrl(s.icon);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const deleteSkill = async (id: string) => {
@@ -91,132 +98,96 @@ export default function AdminSkillsPage() {
     }
   };
 
-  const grouped = skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {} as Record<string, Skill[]>);
+  // Reorder categories: rewrite displayOrder so category N occupies N*100 + position.
+  const dropOn = async (target: string) => {
+    if (!dragCat || dragCat === target) { setDragCat(null); return; }
+    const next = categories.filter((c) => c !== dragCat);
+    next.splice(next.indexOf(target) + (categories.indexOf(dragCat) < categories.indexOf(target) ? 1 : 0), 0, dragCat);
+    setDragCat(null);
+    const updated = skills.map((s) => ({ ...s, displayOrder: next.indexOf(s.category) * 100 + skills.filter((x) => x.category === s.category).indexOf(s) }));
+    setSkills([...updated].sort((a, b) => a.displayOrder - b.displayOrder));
+    await Promise.all(updated.map((s) => fetch("/api/skills", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: s.id, displayOrder: s.displayOrder }) })));
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Skills</h1>
-          <p className="text-muted-foreground text-sm mt-1">Manage your skills and technologies</p>
+    <>
+      <PageHead title="Skills" sub={`${skills.length} skills in ${categories.length} categories. Drag a category to reorder.`} />
+
+      <form onSubmit={handleSave} className="acard">
+        <div className="hd">
+          <div>
+            <h3>{editingId ? "Edit skill" : "Add a skill"}</h3>
+            <p>The icon is optional. A letter tile is used until you upload one.</p>
+          </div>
+          {editingId && <button type="button" className="btn s" onClick={resetForm}>Cancel</button>}
         </div>
-        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm gap-2">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-          Add Skill
-        </button>
-      </div>
-
-      {showForm && (
-        <form onSubmit={handleCreate} className="glass rounded-2xl p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="React" className="input-field" required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Category</label>
-              <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Frontend" className="input-field" required />
-            </div>
+        <input ref={iconInputRef} type="file" accept="image/*,.svg" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) handleIconUpload(f); e.target.value = ""; }} />
+        <div className="skadd">
+          <div>
+            <label className="label" htmlFor="sk-name">Name</label>
+            <input id="sk-name" className="in" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Kafka" required />
           </div>
-
-          {/* Icon Upload */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Icon</label>
-            <input
-              ref={iconInputRef}
-              type="file"
-              accept="image/*,.svg"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleIconUpload(file);
-              }}
-            />
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => iconInputRef.current?.click()}
-                disabled={uploadingIcon}
-                className="btn-outline text-sm disabled:opacity-50"
-              >
-                {uploadingIcon ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                    Uploading...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    Upload Icon
-                  </span>
-                )}
-              </button>
-              {iconUrl && (
-                <Image src={iconUrl} alt="Icon preview" width={40} height={40} className="w-10 h-10 object-contain" />
-              )}
-            </div>
+          <div>
+            <label className="label" htmlFor="sk-cat">Category</label>
+            <select id="sk-cat" className="in" value={category || categories[0] || NEW_CATEGORY} onChange={(e) => setCategory(e.target.value)}>
+              {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+              <option value={NEW_CATEGORY}>New category…</option>
+            </select>
+            {(category === NEW_CATEGORY || categories.length === 0) && (
+              <input className="in" style={{ marginTop: 8 }} value={newCategory} onChange={(e) => { setCategory(NEW_CATEGORY); setNewCategory(e.target.value); }} placeholder="Category name" aria-label="New category name" required />
+            )}
           </div>
-
-          <div className="flex gap-3">
-            <button type="submit" disabled={saving} className="btn-primary text-sm disabled:opacity-50">
-              {saving ? "Adding..." : "Add Skill"}
-            </button>
-            <button type="button" onClick={() => setShowForm(false)} className="btn-outline text-sm">Cancel</button>
-          </div>
-        </form>
-      )}
+          <button type="button" className="btn" onClick={() => iconInputRef.current?.click()} disabled={uploadingIcon}>
+            {iconUrl ? <Image src={iconUrl} alt="Icon preview" width={18} height={18} style={{ objectFit: "contain" }} /> : <Icon name="image" size={16} />} {uploadingIcon ? "Uploading…" : iconUrl ? "Change icon" : "Upload icon"}
+          </button>
+          <button type="submit" className="btn p" disabled={saving}>
+            <Icon name={editingId ? "check" : "plus"} size={16} /> {saving ? "Saving…" : editingId ? "Save skill" : "Add skill"}
+          </button>
+        </div>
+      </form>
 
       {loading ? (
-        <div className="glass rounded-2xl p-12 text-center">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-        </div>
+        <div className="acard"><p className="muted" style={{ margin: 0 }}>Loading skills…</p></div>
       ) : skills.length === 0 ? (
-        <div className="glass rounded-2xl p-12 text-center">
-          <h3 className="text-lg font-semibold text-foreground mb-2">No skills yet</h3>
-          <p className="text-sm text-muted-foreground">Add your first skill above.</p>
-        </div>
+        <div className="acard"><p className="muted" style={{ margin: 0 }}>No skills yet. Add your first skill above.</p></div>
       ) : (
-        <div className="space-y-8">
-          {Object.entries(grouped).map(([category, categorySkills]) => (
-            <div key={category}>
-              <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full gradient-bg" />
-                {category}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {categorySkills.map((skill) => (
-                  <div key={skill.id} className="glass rounded-xl p-4 text-center relative group card-hover">
-                    <button
-                      onClick={() => deleteSkill(skill.id)}
-                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-400 transition-all"
-                    >
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                    {skill.icon ? (
-                      <Image src={skill.icon} alt={skill.name} width={40} height={40} className="w-10 h-10 mx-auto mb-2 object-contain" />
-                    ) : (
-                      <div className="w-10 h-10 rounded-lg gradient-bg opacity-50 flex items-center justify-center mx-auto mb-2">
-                        <span className="text-white font-bold text-sm">{skill.name.charAt(0)}</span>
-                      </div>
-                    )}
-                    <span className="text-xs font-medium text-muted-foreground">{skill.name}</span>
-                  </div>
-                ))}
+        <div className="acard">
+          <div className="skrows">
+            {categories.map((cat, ci) => (
+              <div
+                key={cat}
+                className={"skrow" + (dragCat === cat ? " dragging" : "")}
+                draggable
+                onDragStart={() => setDragCat(cat)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => dropOn(cat)}
+                onDragEnd={() => setDragCat(null)}
+              >
+                <div className="cat">
+                  <span className="grip" aria-hidden="true"><Icon name="grip" size={16} /></span>
+                  {cat}
+                  <small>{skills.filter((s) => s.category === cat).length}</small>
+                </div>
+                <div className="items" style={{ "--lc": COLORS[ci % COLORS.length] } as React.CSSProperties}>
+                  {skills.filter((s) => s.category === cat).map((s) => (
+                    <span key={s.id} className="skchip">
+                      {s.icon ? <i className="img"><Image src={s.icon} alt="" width={18} height={18} style={{ objectFit: "contain" }} /></i> : <i>{displaySkill(s.name).charAt(0)}</i>}
+                      {displaySkill(s.name)}
+                      <span className="x">
+                        <button type="button" title={`Edit ${s.name}`} aria-label={`Edit ${s.name}`} onClick={() => startEdit(s)}><Icon name="edit" size={13} /></button>
+                        <button type="button" title={`Delete ${s.name}`} aria-label={`Delete ${s.name}`} onClick={() => deleteSkill(s.id)}><Icon name="trash" size={13} /></button>
+                      </span>
+                    </span>
+                  ))}
+                  <button type="button" className="skchip add" onClick={() => { resetForm(); setCategory(cat); window.scrollTo({ top: 0, behavior: "smooth" }); document.getElementById("sk-name")?.focus(); }}>
+                    <Icon name="plus" size={14} /> Add
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

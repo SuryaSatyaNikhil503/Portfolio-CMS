@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Icon from "@/components/ui/Icon";
+
+function currentSessionId(): string | undefined {
+  try { return sessionStorage.getItem("sid") ?? undefined; } catch { return undefined; }
+}
 
 export default function NewsletterForm() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    profession: "",
-    location: "",
-    phone: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", profession: "", location: "", phone: "" });
+  const [linkSession, setLinkSession] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -26,12 +26,12 @@ export default function NewsletterForm() {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, linkSession, sessionId: linkSession ? currentSessionId() : undefined }),
       });
-
       const data = await res.json();
       if (res.ok) {
         setStatus("success");
+        window.dispatchEvent(new CustomEvent("track:event", { detail: "newsletter_subscribe" }));
         setMessage(data.message || "Subscribed!");
         setForm({ name: "", email: "", profession: "", location: "", phone: "" });
       } else {
@@ -42,91 +42,40 @@ export default function NewsletterForm() {
       setStatus("error");
       setMessage("Something went wrong");
     }
-
     setTimeout(() => { setStatus("idle"); setMessage(""); }, 4000);
   };
 
   if (status === "success") {
     return (
-      <div className="text-center py-4">
-        <div className="text-3xl mb-2">🎉</div>
-        <p className="text-primary font-semibold">You&apos;re subscribed!</p>
-        <p className="text-muted-foreground text-sm mt-1">{message}</p>
+      <div className="newsdone" role="status">
+        <Icon name="check" size={22} />
+        <div>
+          <b>You&apos;re subscribed!</b>
+          <span>{message}</span>
+        </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="Your name *"
-          className="input-field text-sm !py-2.5"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="your@email.com *"
-          className="input-field text-sm !py-2.5"
-          required
-        />
-        <input
-          type="text"
-          name="profession"
-          value={form.profession}
-          onChange={handleChange}
-          placeholder="Profession (optional)"
-          className="input-field text-sm !py-2.5"
-        />
-        <input
-          type="text"
-          name="location"
-          value={form.location}
-          onChange={handleChange}
-          placeholder="Location (optional)"
-          className="input-field text-sm !py-2.5"
-        />
-        <input
-          type="tel"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="Phone number (optional)"
-          className="input-field text-sm !py-2.5 sm:col-span-2"
-        />
+    <form onSubmit={handleSubmit} className="formcol">
+      <div className="fields">
+        <input className="in" type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your name *" aria-label="Your name" required />
+        <input className="in" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@company.com *" aria-label="Email" required />
+        <input className="in" type="text" name="profession" value={form.profession} onChange={handleChange} placeholder="Profession" aria-label="Profession" />
+        <input className="in" type="text" name="location" value={form.location} onChange={handleChange} placeholder="Location" aria-label="Location" />
+        <input className="in full" type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Phone (optional)" aria-label="Phone" />
       </div>
-
-      {message && status === "error" && (
-        <p className="text-xs text-red-400">{message}</p>
-      )}
-
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="btn-primary w-full text-sm disabled:opacity-50"
-      >
-        {status === "loading" ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Subscribing...
-          </span>
-        ) : (
-          "Subscribe to Newsletter"
-        )}
-      </button>
-      <p className="text-xs text-muted-foreground text-center">
-        No spam. Unsubscribe anytime. I&apos;ll notify you when I publish new articles.
-      </p>
+      <label className="chk">
+        <input type="checkbox" checked={linkSession} onChange={(e) => setLinkSession(e.target.checked)} />
+        <span>Also let me see which pages I read before subscribing (optional)</span>
+      </label>
+      <div className="form">
+        <button type="submit" className="btn" disabled={status === "loading"}>
+          {status === "loading" ? "Subscribing…" : "Subscribe"}
+        </button>
+        {status === "error" && <span className="newserr" role="alert">{message}</span>}
+      </div>
     </form>
   );
 }

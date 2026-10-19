@@ -3,25 +3,15 @@
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import PageHead from "@/components/admin/PageHead";
+import Icon from "@/components/ui/Icon";
 
 const TipTapEditor = dynamic(() => import("@/editor/TipTapEditor"), {
   ssr: false,
-  loading: () => (
-    <div className="glass rounded-xl p-4 min-h-[200px] flex items-center justify-center">
-      <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
+  loading: () => <div className="acard"><p className="muted" style={{ margin: 0 }}>Loading editor…</p></div>,
 });
 
-const defaultBio = {
-  type: "doc",
-  content: [
-    {
-      type: "paragraph",
-      content: [{ type: "text", text: "" }],
-    },
-  ],
-};
+const defaultBio = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "" }] }] };
 
 export default function AdminAboutPage() {
   const [name, setName] = useState("");
@@ -30,6 +20,7 @@ export default function AdminAboutPage() {
   const [resumeLink, setResumeLink] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [openToWork, setOpenToWork] = useState(true);
   const [bio, setBio] = useState<object>(defaultBio);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -51,9 +42,8 @@ export default function AdminAboutPage() {
           setResumeLink(data.about.resumeLink || "");
           setGithubUrl(data.about.githubUrl || "");
           setLinkedinUrl(data.about.linkedinUrl || "");
-          if (data.about.bio && Object.keys(data.about.bio).length > 0) {
-            setBio(data.about.bio);
-          }
+          setOpenToWork(data.about.openToWork ?? true);
+          if (data.about.bio && Object.keys(data.about.bio).length > 0) setBio(data.about.bio);
         }
       } catch (error) {
         console.error("Error:", error);
@@ -64,25 +54,15 @@ export default function AdminAboutPage() {
     fetchAbout();
   }, []);
 
-  const handleUpload = async (
-    file: File,
-    context: string,
-    onSuccess: (url: string) => void,
-    setUploading: (v: boolean) => void
-  ) => {
+  const handleUpload = async (file: File, context: string, onSuccess: (url: string) => void, setUploading: (v: boolean) => void) => {
     setUploading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("context", context);
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
       const data = await res.json();
-      if (data.url) {
-        onSuccess(data.url);
-      }
+      if (data.url) onSuccess(data.url);
     } catch (error) {
       console.error("Upload error:", error);
     } finally {
@@ -97,15 +77,7 @@ export default function AdminAboutPage() {
       await fetch("/api/about", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          title,
-          profileImage,
-          resumeLink,
-          githubUrl,
-          linkedinUrl,
-          bio,
-        }),
+        body: JSON.stringify({ name, title, profileImage, resumeLink, githubUrl, linkedinUrl, openToWork, bio }),
       });
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -116,213 +88,53 @@ export default function AdminAboutPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
+  if (loading) return <div className="acard"><p className="muted" style={{ margin: 0 }}>Loading profile…</p></div>;
 
   return (
-    <div className="max-w-2xl space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">About Section</h1>
-        <p className="text-muted-foreground text-sm mt-1">
-          Update your profile information
-        </p>
+    <form onSubmit={handleSave} style={{ display: "contents" }}>
+      <PageHead title="About" sub="Shown on the About page and across the site" actions={<button type="submit" className="btn p" disabled={saving}><Icon name="check" size={16} /> {saving ? "Saving…" : saved ? "Saved" : "Save changes"}</button>} />
+      <div className="agrid">
+        <div className="acard">
+          <div className="hd"><h3>Profile</h3></div>
+          <div className="formgrid">
+            <div><label className="label" htmlFor="a-name">Name</label><input id="a-name" className="in" value={name} onChange={(e) => setName(e.target.value)} required /></div>
+            <div><label className="label" htmlFor="a-title">Title</label><input id="a-title" className="in" value={title} onChange={(e) => setTitle(e.target.value)} /></div>
+            <div><label className="label" htmlFor="a-gh">GitHub</label><input id="a-gh" className="in" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} placeholder="https://github.com/…" /></div>
+            <div><label className="label" htmlFor="a-li">LinkedIn</label><input id="a-li" className="in" value={linkedinUrl} onChange={(e) => setLinkedinUrl(e.target.value)} placeholder="https://linkedin.com/in/…" /></div>
+            <div className="full">
+              <label className="switch" role="switch" aria-checked={openToWork} tabIndex={0} onClick={() => setOpenToWork((v) => !v)} onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); setOpenToWork((v) => !v); } }}>
+                <span className={"tr" + (openToWork ? "" : " off")} />
+                <span><b>Show &quot;Open to new roles&quot; on the site</b><br /><span className="muted" style={{ fontSize: 12.5 }}>Highlighted pill on Home and the Availability card on About</span></span>
+              </label>
+            </div>
+            <div className="full">
+              <label className="label">Bio</label>
+              <TipTapEditor content={bio} onChange={setBio} />
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gap: 16, alignContent: "start" }}>
+          <div className="acard">
+            <div className="hd"><h3>Photo</h3></div>
+            <input ref={photoInputRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "profile-photo", setProfileImage, setUploadingPhoto); e.target.value = ""; }} />
+            <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+              {profileImage ? <Image src={profileImage} alt="Profile photo" width={84} height={84} style={{ width: 84, height: 84, borderRadius: 14, objectFit: "cover", border: "1px solid var(--line)" }} /> : <span style={{ width: 84, height: 84, borderRadius: 14, background: "var(--surface-2)", display: "grid", placeItems: "center", font: "800 28px var(--f-display)" }}>{name.charAt(0) || "?"}</span>}
+              <button type="button" className="btn s" onClick={() => photoInputRef.current?.click()} disabled={uploadingPhoto}>{uploadingPhoto ? "Uploading…" : profileImage ? "Replace" : "Upload photo"}</button>
+            </div>
+          </div>
+          <div className="acard">
+            <div className="hd"><h3>Résumé</h3></div>
+            <input ref={resumeInputRef} type="file" accept=".pdf,.doc,.docx" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "resume", setResumeLink, setUploadingResume); e.target.value = ""; }} />
+            <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+              {resumeLink && <span className="pill good nodot"><Icon name="check" size={13} /> File uploaded</span>}
+              <button type="button" className="btn s" onClick={() => resumeInputRef.current?.click()} disabled={uploadingResume}><Icon name="download" size={14} /> {uploadingResume ? "Uploading…" : resumeLink ? "Replace file" : "Upload résumé"}</button>
+              {resumeLink && <a href={resumeLink} target="_blank" rel="noopener noreferrer" className="btn s t">View current <Icon name="ext" size={13} /></a>}
+            </div>
+            <p className="muted" style={{ fontSize: 12.5, margin: "10px 0 0" }}>Downloads are counted as events in Visitors.</p>
+          </div>
+        </div>
       </div>
-
-      <form onSubmit={handleSave} className="glass rounded-2xl p-6 space-y-5">
-        {/* Profile Preview */}
-        <div className="flex items-center gap-4 mb-2">
-          <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center overflow-hidden flex-shrink-0">
-            {profileImage ? (
-              <Image
-                src={profileImage}
-                alt="Profile"
-                width={64}
-                height={64}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-2xl font-bold text-white">
-                {name ? name.charAt(0).toUpperCase() : "?"}
-              </span>
-            )}
-          </div>
-          <div>
-            <p className="font-semibold text-foreground">{name || "Your Name"}</p>
-            <p className="text-sm text-muted-foreground">{title || "Your Title"}</p>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your Name"
-            className="input-field"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Full-Stack Software Engineer"
-            className="input-field"
-          />
-        </div>
-
-        {/* Profile Photo Upload */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
-            Profile Photo
-          </label>
-          <input
-            ref={photoInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                handleUpload(file, "profile-photo", setProfileImage, setUploadingPhoto);
-              }
-            }}
-          />
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => photoInputRef.current?.click()}
-              disabled={uploadingPhoto}
-              className="btn-outline text-sm disabled:opacity-50"
-            >
-              {uploadingPhoto ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  Uploading...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  {profileImage ? "Replace Photo" : "Upload Photo"}
-                </span>
-              )}
-            </button>
-            {profileImage && (
-              <span className="text-xs text-green-400 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                Photo uploaded
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Resume Upload */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
-            Resume
-          </label>
-          <input
-            ref={resumeInputRef}
-            type="file"
-            accept=".pdf,.doc,.docx"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                handleUpload(file, "resume", setResumeLink, setUploadingResume);
-              }
-            }}
-          />
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => resumeInputRef.current?.click()}
-              disabled={uploadingResume}
-              className="btn-outline text-sm disabled:opacity-50"
-            >
-              {uploadingResume ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  Uploading...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  {resumeLink ? "Replace Resume" : "Upload Resume"}
-                </span>
-              )}
-            </button>
-            {resumeLink && (
-              <a
-                href={resumeLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-primary hover:underline flex items-center gap-1"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                View Current Resume ↗
-              </a>
-            )}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">
-              GitHub URL
-            </label>
-            <input
-              type="text"
-              value={githubUrl}
-              onChange={(e) => setGithubUrl(e.target.value)}
-              placeholder="https://github.com/username"
-              className="input-field"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">
-              LinkedIn URL
-            </label>
-            <input
-              type="text"
-              value={linkedinUrl}
-              onChange={(e) => setLinkedinUrl(e.target.value)}
-              placeholder="https://linkedin.com/in/username"
-              className="input-field"
-            />
-          </div>
-        </div>
-
-        {/* TipTap Bio Editor */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Bio</label>
-          <TipTapEditor
-            content={bio}
-            onChange={(content: object) => setBio(content)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={saving}
-          className="btn-primary text-sm disabled:opacity-50"
-        >
-          {saving ? "Saving..." : saved ? "✓ Saved!" : "Save Changes"}
-        </button>
-      </form>
-    </div>
+    </form>
   );
 }

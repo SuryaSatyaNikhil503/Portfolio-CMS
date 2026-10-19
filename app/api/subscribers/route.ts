@@ -9,9 +9,12 @@ export async function GET(request: NextRequest) {
     const auth = await requireAuth(request);
     if (auth instanceof NextResponse) return auth;
 
-    const subscribers = await prisma.subscriber.findMany({
+    const rows = await prisma.subscriber.findMany({
       orderBy: { subscribedAt: "desc" },
+      include: { sessions: { select: { id: true }, orderBy: { startedAt: "desc" } } },
     });
+    // Only visits the subscriber chose to share (ticked the optional box) are ever linked.
+    const subscribers = rows.map(({ sessions, ...s }) => ({ ...s, visitCount: sessions.length, latestVisitId: sessions[0]?.id ?? null }));
 
     return NextResponse.json({ subscribers });
   } catch (error) {

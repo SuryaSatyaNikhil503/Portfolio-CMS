@@ -1,4 +1,5 @@
 import { getAuthUser } from "@/lib/auth";
+import prisma from "@/lib/prisma";
 import AdminSidebar from "@/components/AdminSidebar";
 
 export default async function AdminLayout({
@@ -17,15 +18,21 @@ export default async function AdminLayout({
   // also lands here with `!user` and gets the login page shell, while the
   // API-level `requireAuth` (layer 3) blocks any data mutation.
   if (!user) {
-    return <>{children}</>;
+    return <div data-area="admin" className="admroot -mt-16">{children}</div>;
   }
 
+  const [blogs, projects, skills] = await Promise.all([
+    prisma.blog.count().catch(() => 0),
+    prisma.project.count().catch(() => 0),
+    prisma.skill.count().catch(() => 0),
+  ]);
+
   return (
-    <div className="min-h-screen flex !pt-0">
-      <AdminSidebar />
-      <main className="flex-1 ml-64 min-h-screen">
-        <div className="p-8">{children}</div>
-      </main>
+    <div data-area="admin" className="admroot -mt-16">
+      <div className="adm">
+        <AdminSidebar counts={{ blogs, projects, skills }} />
+        <main className="amain">{children}</main>
+      </div>
     </div>
   );
 }

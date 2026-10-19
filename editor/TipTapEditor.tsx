@@ -1,9 +1,7 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
-import MenuBar from "./MenuBar";
+// Compatibility wrapper: the About and Project admin pages import this path.
+import RichTextEditor from "./RichTextEditor";
 
 interface TipTapEditorProps {
   content: object;
@@ -12,33 +10,5 @@ interface TipTapEditorProps {
 }
 
 export default function TipTapEditor({ content, onChange, blogSlug }: TipTapEditorProps) {
-  const editor = useEditor({
-    immediatelyRender: false,
-    extensions: [
-      StarterKit,
-      Image.configure({
-        HTMLAttributes: {
-          class: "rounded-xl max-w-full",
-        },
-      }),
-    ],
-    content,
-    editorProps: {
-      attributes: {
-        class: "prose-blog focus:outline-none min-h-[400px] p-4",
-      },
-    },
-    onUpdate: ({ editor }) => {
-      onChange(editor.getJSON());
-    },
-  });
-
-  if (!editor) return null;
-
-  return (
-    <div className="tiptap-editor glass rounded-xl overflow-hidden">
-      <MenuBar editor={editor} blogSlug={blogSlug} />
-      <EditorContent editor={editor} />
-    </div>
-  );
+  return <RichTextEditor content={content} onChange={onChange} blogSlug={blogSlug} />;
 }

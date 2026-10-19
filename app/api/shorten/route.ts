@@ -1,8 +1,12 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
+import { requireAuth } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
+  const auth = await requireAuth(request);
+  if (auth instanceof NextResponse) return auth;
+
   const url = request.nextUrl.searchParams.get("url");
   if (!url) return NextResponse.json({ error: "url param required" }, { status: 400 });
 

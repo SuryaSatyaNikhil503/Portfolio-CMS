@@ -4,7 +4,11 @@
 import path from "node:path";
 import dotenv from "dotenv";
 
-// Load .env.local before anything else
+// Load env before anything else. Defaults to the LOCAL dev database; production is an explicit opt-in:
+//   DB_TARGET=production npx tsx scripts/seed-admin.ts
+if (process.env.DB_TARGET !== "production") {
+  dotenv.config({ path: path.resolve(process.cwd(), ".env.development.local") });
+}
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 import { PrismaClient } from "@prisma/client";
