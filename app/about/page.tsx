@@ -23,10 +23,10 @@ async function getAbout() {
 }
 
 const DRIVES: { title: string; description: string; icon: IconName; color: string }[] = [
-  { title: "Clean Code", description: "I believe in writing code that's not just functional, but readable, maintainable, and elegant.", icon: "sparkle", color: "var(--c1)" },
-  { title: "Continuous Learning", description: "Technology evolves rapidly, and I'm passionate about staying current with the latest tools and best practices.", icon: "book", color: "var(--c2)" },
-  { title: "Problem Solving", description: "Breaking down complex challenges into simple, scalable solutions is what motivates me every day.", icon: "bulb", color: "var(--c5)" },
-  { title: "Open Source", description: "Contributing to the developer community and sharing knowledge through open-source projects and technical content.", icon: "globe", color: "var(--c3)" },
+  { title: "Ownership", description: "I treat what I build as mine. If it breaks, I fix it, and I raise problems early instead of hiding them.", icon: "shield", color: "var(--c1)" },
+  { title: "Adaptability", description: "New domain, new tool or changing requirement, I get involved, ask good questions and become useful quickly.", icon: "bulb", color: "var(--c2)" },
+  { title: "Teamwork", description: "I share what I know, listen before deciding, and care more about the team's result than my own credit.", icon: "users", color: "var(--c5)" },
+  { title: "Leadership", description: "When a team needs direction, I step up. I help people get unstuck, coordinate the work and keep everyone clear on the goal.", icon: "flag", color: "var(--c3)" },
 ];
 
 function bioHasText(bio: TipTapNode | undefined): boolean {
@@ -44,7 +44,7 @@ export default async function AboutPage() {
     <>
       <div className="pagehead">
         <h1 className="eyebrow">About Me</h1>
-        <p className="display">Backend engineer who likes <span style={{ color: "var(--primary)" }}>clean systems</span></p>
+        <p className="display">Takes ownership, adapts fast, <span style={{ color: "var(--primary)" }}>works well with people</span></p>
       </div>
 
       <section className="sec">
@@ -104,7 +104,7 @@ export default async function AboutPage() {
           <div className="ctacard">
             <div>
               <h3>Let&apos;s Build Something Together</h3>
-              <p>Explore my projects or check out my latest blog posts.</p>
+              <p>Have a role or a project in mind? See my work, or read what I&apos;ve been writing.</p>
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Link className="btn p" href="/projects">View Projects</Link>
