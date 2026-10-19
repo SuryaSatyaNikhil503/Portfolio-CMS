@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import ProjectCard from "@/components/ProjectCard";
 import prisma from "@/lib/prisma";
-import { getAuthUser } from "@/lib/auth";
-import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -37,7 +35,7 @@ async function getProjects() {
 }
 
 export default async function ProjectsPage() {
-  const [projects, admin] = await Promise.all([getProjects(), getAuthUser().catch(() => null)]);
+  const projects = await getProjects();
 
   return (
     <>
@@ -48,7 +46,7 @@ export default async function ProjectsPage() {
       </div>
       <section className="sec">
         <div className="wrapw">
-          {projects.length === 0 && !admin ? (
+          {projects.length === 0 ? (
             <p className="muted">No projects to display yet. Check back soon!</p>
           ) : (
             <div className="grid3">
@@ -65,13 +63,6 @@ export default async function ProjectsPage() {
                   index={i + 1}
                 />
               ))}
-              {admin && (
-                <a href="/admin/projects" className="bcard addcard">
-                  <span><Icon name="plus" size={20} /></span>
-                  <b>Add a project</b>
-                  <span>Only you see this card.</span>
-                </a>
-              )}
             </div>
           )}
         </div>
